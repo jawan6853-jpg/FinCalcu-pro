@@ -1,10 +1,11 @@
 import React from 'react';
-import { ShieldAlert, BookOpen, Calculator, HelpCircle } from 'lucide-react';
+import { ShieldAlert, BookOpen, Calculator, HelpCircle, CheckCircle2, Zap } from 'lucide-react';
 import { ToolItem } from '../../types';
 import { Breadcrumbs } from './Breadcrumbs';
 import { DynamicIcon } from './DynamicIcon';
 import { FAQAccordion } from './FAQAccordion';
 import { AdPlaceholder } from './AdPlaceholder';
+import { AdsterraBanner } from './AdsterraBanner';
 import { TOOLS } from '../../lib/tools';
 import { useCurrency } from '../../context/CurrencyContext';
 
@@ -79,6 +80,55 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
         <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
           {tool.description}
         </p>
+
+        {/* Quick How to Use Guide for Users & Google Search Snippets */}
+        <div className="mt-4 p-3.5 sm:p-4 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100/80 dark:border-indigo-900/40 max-w-3xl">
+          <div className="flex items-center gap-2 mb-2 text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-400">
+            <Zap className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+            <span>How To Use This Calculator</span>
+          </div>
+          <ol className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 text-xs text-slate-700 dark:text-slate-300">
+            <li className="flex items-start gap-1.5">
+              <span className="flex items-center justify-center w-4 h-4 rounded-full bg-indigo-600 text-white font-mono font-bold text-[10px] shrink-0 mt-0.5">
+                1
+              </span>
+              <span>
+                <strong>Enter Values:</strong> Input your financial numbers in the parameter fields on the left.
+              </span>
+            </li>
+            <li className="flex items-start gap-1.5">
+              <span className="flex items-center justify-center w-4 h-4 rounded-full bg-indigo-600 text-white font-mono font-bold text-[10px] shrink-0 mt-0.5">
+                2
+              </span>
+              <span>
+                <strong>Instant Calculation:</strong> View real-time results, net ROI, and visual charts update dynamically.
+              </span>
+            </li>
+            <li className="flex items-start gap-1.5">
+              <span className="flex items-center justify-center w-4 h-4 rounded-full bg-indigo-600 text-white font-mono font-bold text-[10px] shrink-0 mt-0.5">
+                3
+              </span>
+              <span>
+                <strong>Save or Export:</strong> Download a report or save this calculation to compare alternatives.
+              </span>
+            </li>
+          </ol>
+        </div>
+
+        {/* SEO Keywords Tag Cloud */}
+        {tool.keywords && tool.keywords.length > 0 && (
+          <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400">
+            <span className="font-semibold text-slate-400 dark:text-slate-500">Related:</span>
+            {tool.keywords.map((kw, idx) => (
+              <span
+                key={idx}
+                className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium"
+              >
+                #{kw.replace(/\s+/g, '')}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Core Calculator Two-Column Work Area */}
@@ -133,8 +183,8 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
         </div>
       )}
 
-      {/* AdSense Placement 1 */}
-      <AdPlaceholder slotId={`${tool.id}-below-calc`} format="horizontal" />
+      {/* Adsterra Native Banner Placement */}
+      <AdsterraBanner />
 
       {/* In-Depth Educational Content, Formula, & Example */}
       <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8">

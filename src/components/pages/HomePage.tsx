@@ -4,6 +4,7 @@ import { TOOLS } from '../../lib/tools';
 import { CalculatorCard } from '../common/CalculatorCard';
 import { FAQAccordion } from '../common/FAQAccordion';
 import { AdPlaceholder } from '../common/AdPlaceholder';
+import { AdsterraBanner } from '../common/AdsterraBanner';
 import { SearchBar } from '../common/SearchBar';
 
 interface HomePageProps {
@@ -140,8 +141,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           ))}
         </div>
 
-        {/* AdSense Placement */}
-        <AdPlaceholder slotId="home-feed-banner" format="horizontal" />
+        {/* Adsterra Native Banner Placement */}
+        <AdsterraBanner />
 
         {/* Why FinCalc Pro Section */}
         <div className="mt-16 pt-12 border-t border-slate-200 dark:border-slate-800">

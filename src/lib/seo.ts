@@ -27,6 +27,17 @@ export function updatePageSeo(config: SeoConfig) {
   }
   metaDesc.setAttribute('content', config.description);
 
+  // Meta Keywords
+  if (config.tool?.keywords && config.tool.keywords.length > 0) {
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      metaKeywords = document.createElement('meta');
+      metaKeywords.setAttribute('name', 'keywords');
+      document.head.appendChild(metaKeywords);
+    }
+    metaKeywords.setAttribute('content', config.tool.keywords.join(', '));
+  }
+
   // Canonical
   const origin = typeof window !== 'undefined' ? window.location.origin : '';
   const canonicalUrl = `${origin}${config.path}`;
@@ -96,6 +107,34 @@ export function updatePageSeo(config: SeoConfig) {
         price: '0',
         priceCurrency: 'USD',
       },
+    });
+
+    // HowTo Schema for Google Search Rich Snippets
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: `How to use the ${config.tool.name}`,
+      description: `Step-by-step instructions to calculate results using the ${config.tool.name}.`,
+      step: [
+        {
+          '@type': 'HowToStep',
+          name: 'Enter Input Parameters',
+          text: 'Fill in your financial amounts and rates into the input fields.',
+          position: 1,
+        },
+        {
+          '@type': 'HowToStep',
+          name: 'Review Instant Results',
+          text: 'Examine the live calculated net profit, ROI, or payment schedule.',
+          position: 2,
+        },
+        {
+          '@type': 'HowToStep',
+          name: 'Save or Export',
+          text: 'Save the calculation to your history or download a detailed text report.',
+          position: 3,
+        },
+      ],
     });
   }
 
