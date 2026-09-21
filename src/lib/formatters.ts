@@ -1,12 +1,36 @@
-export type SupportedCurrency = 'USD' | 'EUR' | 'GBP' | 'CAD' | 'AUD' | 'INR' | 'BTC' | 'ETH';
+export type SupportedCurrency =
+  | 'USD'
+  | 'EUR'
+  | 'GBP'
+  | 'PKR'
+  | 'INR'
+  | 'AED'
+  | 'SAR'
+  | 'CAD'
+  | 'AUD'
+  | 'JPY'
+  | 'CHF'
+  | 'CNY'
+  | 'SGD'
+  | 'TRY'
+  | 'BTC'
+  | 'ETH';
 
 export const CURRENCY_SYMBOLS: Record<SupportedCurrency, string> = {
   USD: '$',
   EUR: '€',
   GBP: '£',
+  PKR: 'Rs',
+  INR: '₹',
+  AED: 'AED',
+  SAR: 'SAR',
   CAD: 'CA$',
   AUD: 'A$',
-  INR: '₹',
+  JPY: '¥',
+  CHF: 'CHF',
+  CNY: '¥',
+  SGD: 'S$',
+  TRY: '₺',
   BTC: '₿',
   ETH: 'Ξ',
 };
