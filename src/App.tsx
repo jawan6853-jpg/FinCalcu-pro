@@ -135,7 +135,7 @@ export default function App() {
           title: 'Contact Us | FinCalc Pro Support Desk',
           description:
             'Get in touch with the FinCalc Pro engineering team for calculator feedback, formula inquiries, or advertising partnerships.',
-          path: cleanPath,
+          path: '/contact-us',
         });
         break;
       case '/faq':
@@ -160,7 +160,7 @@ export default function App() {
           title: 'Privacy Policy | FinCalc Pro Client-Side Privacy Guarantee',
           description:
             'Read how FinCalc Pro guarantees your data privacy with 100% client-side computing, zero financial data storage, and Google AdSense compliance.',
-          path: cleanPath,
+          path: '/privacy-policy',
         });
         break;
       case '/terms':
@@ -170,7 +170,7 @@ export default function App() {
           title: 'Terms & Conditions | FinCalc Pro User Agreement',
           description:
             'Terms and conditions of use, financial disclaimer, and acceptable usage rules for FinCalc Pro tools and content.',
-          path: cleanPath,
+          path: '/terms-and-conditions',
         });
         break;
       case '/disclaimer':
