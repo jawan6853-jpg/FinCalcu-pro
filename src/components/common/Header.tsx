@@ -33,9 +33,14 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
         <button
           onClick={() => handleNav('/')}
           className="flex items-center gap-2.5 shrink-0 group text-left cursor-pointer focus:outline-none"
+          aria-label="FinCalc Pro - Free Finance & Crypto Profit Calculator"
         >
-          <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-sm shadow-indigo-500/30 group-hover:bg-indigo-700 transition-colors">
-            <Calculator className="w-5 h-5" />
+          <div
+            className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-sm shadow-indigo-500/30 group-hover:bg-indigo-700 transition-colors"
+            role="img"
+            aria-label="FinCalc Pro Finance Calculator Logo"
+          >
+            <Calculator className="w-5 h-5" aria-hidden="true" />
           </div>
           <div>
             <span className="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 dark:text-slate-100 flex items-center gap-1">

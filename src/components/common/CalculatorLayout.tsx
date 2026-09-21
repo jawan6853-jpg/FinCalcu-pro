@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldAlert, BookOpen, Calculator, HelpCircle, CheckCircle2, Zap } from 'lucide-react';
+import { ShieldAlert, BookOpen, Calculator, HelpCircle, CheckCircle2, Zap, Sparkles } from 'lucide-react';
 import { ToolItem } from '../../types';
 import { Breadcrumbs } from './Breadcrumbs';
 import { DynamicIcon } from './DynamicIcon';
@@ -131,6 +131,11 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
         )}
       </div>
 
+      {/* Adsterra Container 1: Directly ABOVE Calculator Form (below main page title) */}
+      <div id="ad-container-above-calculator" className="my-6 w-full">
+        <AdsterraBanner />
+      </div>
+
       {/* Core Calculator Two-Column Work Area */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Calculator Inputs */}
@@ -171,6 +176,11 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
             {resultsComponent}
           </div>
 
+          {/* Adsterra Container 2: Directly BELOW Final Calculation Results Box */}
+          <div id="ad-container-below-results" className="w-full">
+            <AdsterraBanner />
+          </div>
+
           {/* Optional Visual Chart */}
           {chartComponent}
         </div>
@@ -183,13 +193,47 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
         </div>
       )}
 
-      {/* Adsterra Native Banner Placement */}
-      <AdsterraBanner />
-
       {/* In-Depth Educational Content, Formula, & Example */}
       <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Formula & Explanation */}
         <div className="lg:col-span-7 space-y-8">
+          {/* Rich SEO Content Article */}
+          <article className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs prose prose-slate dark:prose-invert max-w-none">
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2 mb-4">
+              <Sparkles className="w-5 h-5 text-indigo-500" />
+              <span>The Best Crypto Calculator & Finance Calculator Pro Guide</span>
+            </h2>
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              Navigating cryptocurrency markets and digital asset trading requires institutional-grade precision. Whether you are scalping volatile intraday swings, swing trading altcoins, or dollar-cost averaging into Bitcoin and Ethereum, utilizing the <strong>Best Crypto Calculator</strong> is vital to protecting your capital and guaranteeing profitability. FinCalc Pro provides a verified <strong>Finance Calculator Pro</strong> suite and <strong>Investment Return Calculator</strong> engineered to eliminate guesswork, account for exchange taker fees, and calculate exact return on investment (ROI).
+            </p>
+
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 mt-6 mb-2.5">
+              How to use this Crypto Profit Calculator
+            </h3>
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
+              Understanding <strong>how to calculate crypto profit</strong> takes only three straightforward steps:
+            </p>
+            <ol className="list-decimal pl-5 space-y-1.5 text-sm text-slate-600 dark:text-slate-400 mb-4">
+              <li><strong>Select Your Base Currency:</strong> Choose USD, PKR, INR, EUR, or your local regional currency using the top selector next to the inputs.</li>
+              <li><strong>Enter Buy and Sell Values:</strong> Input your buying price per coin, anticipated or finalized selling price, and total cryptocurrency quantity.</li>
+              <li><strong>Input Trading Fees:</strong> Enter your exchange's maker/taker fee percentage (or flat rate) to automatically <strong>calculate trading fees</strong> and view your 100% net realized PnL.</li>
+            </ol>
+
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 mt-6 mb-2.5">
+              Understanding Buy and Sell Price
+            </h3>
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              Your <em>Buy Price</em> (cost basis) represents the total cash expended to acquire each crypto token, including purchase slippage. The <em>Sell Price</em> indicates your target liquidation price on the market. While the gross spread between entry and exit prices suggests theoretical gain, your real wallet balance is determined purely by Net Profit after deducting all entry, exit, and network gas commissions.
+            </p>
+
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 mt-6 mb-2.5">
+              How Trading Fees Affect Your ROI
+            </h3>
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-2">
+              Every major cryptocurrency exchange (such as Binance, Coinbase, Bybit, OKX, and Kraken) levies maker and taker commissions on trade executions. When trading fees are overlooked, high-frequency traders or leveraged swing positions can quickly find what seemed like a profitable trade turning into a net loss. Calculating trading fees across both buy and sell legs ensures you pinpoint your exact break-even target before placing orders on the book.
+            </p>
+          </article>
+
           <div className="bg-white dark:bg-slate-900 p-6 sm:p-7 rounded-2xl border border-slate-200 dark:border-slate-800">
             <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-4">
               <BookOpen className="w-5 h-5 text-indigo-500" />

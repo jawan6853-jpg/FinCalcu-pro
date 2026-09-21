@@ -130,11 +130,12 @@ export default function App() {
         });
         break;
       case '/contact':
+      case '/contact-us':
         updatePageSeo({
-          title: 'Contact Us | FinCalc Pro Support',
+          title: 'Contact Us | FinCalc Pro Support Desk',
           description:
-            'Get in touch with the FinCalc Pro engineering team for calculator feedback, formula inquiries, or feature suggestions.',
-          path: '/contact',
+            'Get in touch with the FinCalc Pro engineering team for calculator feedback, formula inquiries, or advertising partnerships.',
+          path: cleanPath,
         });
         break;
       case '/faq':
@@ -154,18 +155,22 @@ export default function App() {
         });
         break;
       case '/privacy-policy':
+      case '/privacy':
         updatePageSeo({
-          title: 'Privacy Policy | FinCalc Pro',
+          title: 'Privacy Policy | FinCalc Pro Client-Side Privacy Guarantee',
           description:
-            'Read how FinCalc Pro guarantees your data privacy with 100% client-side computing and zero data storage.',
-          path: '/privacy-policy',
+            'Read how FinCalc Pro guarantees your data privacy with 100% client-side computing, zero financial data storage, and Google AdSense compliance.',
+          path: cleanPath,
         });
         break;
       case '/terms':
+      case '/terms-and-conditions':
+      case '/terms-of-service':
         updatePageSeo({
-          title: 'Terms of Use | FinCalc Pro',
-          description: 'Terms of service and usage rules for FinCalc Pro tools and content.',
-          path: '/terms',
+          title: 'Terms & Conditions | FinCalc Pro User Agreement',
+          description:
+            'Terms and conditions of use, financial disclaimer, and acceptable usage rules for FinCalc Pro tools and content.',
+          path: cleanPath,
         });
         break;
       case '/disclaimer':
@@ -217,14 +222,18 @@ export default function App() {
       case '/about':
         return <AboutPage onNavigate={navigate} />;
       case '/contact':
+      case '/contact-us':
         return <ContactPage onNavigate={navigate} />;
       case '/faq':
         return <FAQPage onNavigate={navigate} />;
       case '/sitemap':
         return <SitemapPage onNavigate={navigate} />;
       case '/privacy-policy':
+      case '/privacy':
         return <PrivacyPolicyPage onNavigate={navigate} />;
       case '/terms':
+      case '/terms-and-conditions':
+      case '/terms-of-service':
         return <TermsPage onNavigate={navigate} />;
       case '/disclaimer':
         return <DisclaimerPage onNavigate={navigate} />;

@@ -42,10 +42,23 @@ export const ResultCard: React.FC<ResultCardProps> = ({
   };
 
   const getTextColor = () => {
-    if (status === 'positive') return 'text-emerald-700 dark:text-emerald-400';
-    if (status === 'negative') return 'text-rose-600 dark:text-rose-400';
+    if (status === 'positive') return 'text-emerald-600 dark:text-emerald-400 font-black';
+    if (status === 'negative') return 'text-rose-600 dark:text-rose-400 font-black';
     if (isHighlight) return 'text-indigo-700 dark:text-indigo-300';
     return 'text-slate-900 dark:text-slate-100';
+  };
+
+  // Format value with explicit (+) on positive status or ensure (-) on negative status
+  const formattedDisplayValue = () => {
+    if (status === 'positive') {
+      const cleanVal = value.trim();
+      return cleanVal.startsWith('+') ? cleanVal : `+${cleanVal}`;
+    }
+    if (status === 'negative') {
+      const cleanVal = value.trim();
+      return cleanVal.startsWith('-') ? cleanVal : `-${cleanVal}`;
+    }
+    return value;
   };
 
   return (
@@ -88,7 +101,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
       <div className={`font-extrabold font-mono tracking-tight ${
         isHighlight ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'
       } ${getTextColor()}`}>
-        {value}
+        {formattedDisplayValue()}
       </div>
 
       {subtitle && (

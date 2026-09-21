@@ -24,6 +24,8 @@ export const CalculatorCard: React.FC<CalculatorCardProps> = ({ tool, onNavigate
                 ? 'bg-amber-100/80 text-amber-700 dark:bg-amber-950/50 dark:text-amber-400 group-hover:bg-amber-200/80 dark:group-hover:bg-amber-900/60'
                 : 'bg-indigo-100/80 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-400 group-hover:bg-indigo-200/80 dark:group-hover:bg-indigo-900/60'
             }`}
+            role="img"
+            aria-label={`${tool.name} icon`}
           >
             <DynamicIcon name={tool.icon} className="w-5 h-5" />
           </div>

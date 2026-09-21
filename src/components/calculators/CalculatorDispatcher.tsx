@@ -6,6 +6,7 @@ import { DonutChart, AreaGrowthChart } from '../common/SimpleChart';
 import { AmortizationTable } from '../common/AmortizationTable';
 import { formatCurrency, formatNumber, formatPercentage } from '../../lib/formatters';
 import { useUrlParamsState } from '../../lib/useUrlParamsState';
+import { useCurrency } from '../../context/CurrencyContext';
 
 // Calculators Logic
 import { calculateCryptoProfit, CryptoProfitInput } from '../../lib/calculators/cryptoProfit';
@@ -31,6 +32,8 @@ interface CalculatorViewProps {
 
 // 1. CRYPTO PROFIT
 export const CryptoProfitView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => {
+  const { currency, setCurrency, currencySymbol } = useCurrency();
+
   const initialValues: CryptoProfitInput = {
     buyPrice: 50000,
     sellPrice: 65000,
@@ -42,6 +45,19 @@ export const CryptoProfitView: React.FC<CalculatorViewProps> = ({ tool, onNaviga
   const [inputs, setInputs, resetInputs] = useUrlParamsState<CryptoProfitInput>(initialValues, 'profit');
   const result = calculateCryptoProfit(inputs);
 
+  // Quick single trading fee shortcut state (when user enters unified fee %)
+  const [tradingFeePercent, setTradingFeePercent] = useState<number>(inputs.buyFee || 0.1);
+
+  const handleUnifiedTradingFeeChange = (val: number) => {
+    setTradingFeePercent(val);
+    setInputs({
+      ...inputs,
+      buyFee: val,
+      sellFee: val,
+      feeType: 'percentage',
+    });
+  };
+
   // Popular coin quick presets for professional UX
   const popularPresets = [
     { name: 'BTC', buy: 62000, sell: 68500, qty: 0.25 },
@@ -49,62 +65,106 @@ export const CryptoProfitView: React.FC<CalculatorViewProps> = ({ tool, onNaviga
     { name: 'SOL', buy: 135, sell: 165, qty: 15 },
   ];
 
+  const currencyOptions: { code: 'USD' | 'PKR' | 'INR' | 'EUR'; symbol: string; flag: string }[] = [
+    { code: 'USD', symbol: '$', flag: '🇺🇸' },
+    { code: 'PKR', symbol: 'Rs', flag: '🇵🇰' },
+    { code: 'INR', symbol: '₹', flag: '🇮🇳' },
+    { code: 'EUR', symbol: '€', flag: '🇪🇺' },
+  ];
+
   const inputsComponent = (
     <div className="space-y-4">
-      {/* Quick Coin Presets */}
-      <div>
-        <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block mb-1.5">
-          Quick Coin Scenarios:
-        </span>
-        <div className="flex flex-wrap gap-2">
-          {popularPresets.map((coin) => (
-            <button
-              key={coin.name}
-              type="button"
-              onClick={() =>
-                setInputs({
-                  ...inputs,
-                  buyPrice: coin.buy,
-                  sellPrice: coin.sell,
-                  quantity: coin.qty,
-                })
-              }
-              className="px-2.5 py-1 text-xs rounded-lg font-mono font-medium border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 hover:border-indigo-400 dark:hover:border-indigo-600 transition-colors cursor-pointer"
-            >
-              {coin.name} Demo
-            </button>
-          ))}
+      {/* Quick Coin Presets & Currency Selector Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block mb-1">
+            Quick Coin Scenarios:
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {popularPresets.map((coin) => (
+              <button
+                key={coin.name}
+                type="button"
+                onClick={() =>
+                  setInputs({
+                    ...inputs,
+                    buyPrice: coin.buy,
+                    sellPrice: coin.sell,
+                    quantity: coin.qty,
+                  })
+                }
+                className="px-2.5 py-1 text-xs rounded-lg font-mono font-medium border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 hover:border-indigo-400 dark:hover:border-indigo-600 transition-colors cursor-pointer"
+              >
+                {coin.name} Demo
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Currency Selector Dropdown (USD, PKR, INR, EUR) */}
+        <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
+          <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+            Currency:
+          </label>
+          <select
+            value={['USD', 'PKR', 'INR', 'EUR'].includes(currency) ? currency : 'USD'}
+            onChange={(e) => setCurrency(e.target.value as any)}
+            className="px-2.5 py-1.5 text-xs font-semibold rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-indigo-600 dark:text-indigo-400 focus:ring-2 focus:ring-indigo-500 font-mono cursor-pointer"
+            aria-label="Select calculator currency (USD, PKR, INR, EUR)"
+          >
+            {currencyOptions.map((opt) => (
+              <option key={opt.code} value={opt.code}>
+                {opt.flag} {opt.code} ({opt.symbol})
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Buy / Entry Price ($)
-          </label>
-          <input
-            type="number"
-            min="0"
-            step="any"
-            value={inputs.buyPrice || ''}
-            onChange={(e) => setInputs({ ...inputs, buyPrice: parseFloat(e.target.value) || 0 })}
-            className="w-full px-3.5 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 font-mono"
-            placeholder="50000"
-          />
+          <div className="flex items-center justify-between mb-1.5">
+            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+              Buy / Entry Price ({currencySymbol})
+            </label>
+            <span className="text-[11px] font-mono text-slate-400">Per Coin</span>
+          </div>
+          <div className="relative">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-mono font-bold text-slate-400">
+              {currencySymbol}
+            </span>
+            <input
+              type="number"
+              min="0"
+              step="any"
+              value={inputs.buyPrice || ''}
+              onChange={(e) => setInputs({ ...inputs, buyPrice: parseFloat(e.target.value) || 0 })}
+              className="w-full pl-8 pr-3.5 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 font-mono"
+              placeholder="50000"
+            />
+          </div>
         </div>
         <div>
-          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Sell / Exit Price ($)
-          </label>
-          <input
-            type="number"
-            min="0"
-            step="any"
-            value={inputs.sellPrice || ''}
-            onChange={(e) => setInputs({ ...inputs, sellPrice: parseFloat(e.target.value) || 0 })}
-            className="w-full px-3.5 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 font-mono"
-            placeholder="65000"
-          />
+          <div className="flex items-center justify-between mb-1.5">
+            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+              Sell / Exit Price ({currencySymbol})
+            </label>
+            <span className="text-[11px] font-mono text-slate-400">Target Exit</span>
+          </div>
+          <div className="relative">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-mono font-bold text-slate-400">
+              {currencySymbol}
+            </span>
+            <input
+              type="number"
+              min="0"
+              step="any"
+              value={inputs.sellPrice || ''}
+              onChange={(e) => setInputs({ ...inputs, sellPrice: parseFloat(e.target.value) || 0 })}
+              className="w-full pl-8 pr-3.5 py-2 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 font-mono"
+              placeholder="65000"
+            />
+          </div>
         </div>
       </div>
 
@@ -123,10 +183,55 @@ export const CryptoProfitView: React.FC<CalculatorViewProps> = ({ tool, onNaviga
         />
       </div>
 
+      {/* Trading Fees (%) Input Field */}
+      <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
+        <div className="flex items-center justify-between mb-2">
+          <label className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+            <span>Trading Fees (%)</span>
+            <span className="text-[10px] font-normal text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-1.5 py-0.5 rounded font-mono">
+              100% accurate PnL
+            </span>
+          </label>
+          <span className="text-[11px] font-mono text-slate-500">
+            Maker / Taker Avg
+          </span>
+        </div>
+        <div className="relative mb-2">
+          <input
+            type="number"
+            min="0"
+            max="100"
+            step="0.01"
+            value={tradingFeePercent}
+            onChange={(e) => handleUnifiedTradingFeeChange(parseFloat(e.target.value) || 0)}
+            className="w-full px-3.5 py-2 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 font-mono"
+            placeholder="0.1"
+          />
+          <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 font-mono">
+            %
+          </span>
+        </div>
+        <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
+          <span>Popular exchange presets:</span>
+          <div className="flex items-center gap-1.5 font-mono">
+            {[0.075, 0.1, 0.2, 0.5].map((fee) => (
+              <button
+                key={fee}
+                type="button"
+                onClick={() => handleUnifiedTradingFeeChange(fee)}
+                className="px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-400 text-[10px] cursor-pointer"
+              >
+                {fee}%
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
         <div className="flex items-center justify-between mb-2.5">
           <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
-            Exchange Fees
+            Detailed Fee Customization
           </span>
           <div className="flex rounded-lg p-0.5 bg-slate-100 dark:bg-slate-800 text-[11px]">
             <button
@@ -149,7 +254,7 @@ export const CryptoProfitView: React.FC<CalculatorViewProps> = ({ tool, onNaviga
                   : 'text-slate-500'
               }`}
             >
-              $ Flat
+              Flat ({currencySymbol})
             </button>
           </div>
         </div>
@@ -157,7 +262,7 @@ export const CryptoProfitView: React.FC<CalculatorViewProps> = ({ tool, onNaviga
         <div className="grid grid-cols-2 gap-3">
           <div>
             <label className="block text-[11px] text-slate-500 mb-1">
-              Buy Fee ({inputs.feeType === 'percentage' ? '%' : '$'})
+              Buy Fee ({inputs.feeType === 'percentage' ? '%' : currencySymbol})
             </label>
             <input
               type="number"
@@ -170,7 +275,7 @@ export const CryptoProfitView: React.FC<CalculatorViewProps> = ({ tool, onNaviga
           </div>
           <div>
             <label className="block text-[11px] text-slate-500 mb-1">
-              Sell Fee ({inputs.feeType === 'percentage' ? '%' : '$'})
+              Sell Fee ({inputs.feeType === 'percentage' ? '%' : currencySymbol})
             </label>
             <input
               type="number"

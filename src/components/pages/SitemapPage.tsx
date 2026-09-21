@@ -18,13 +18,13 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ onNavigate }) => {
     { label: 'All 15 Calculators Directory', route: '/calculators' },
     { label: 'Learn & Financial Guides', route: '/learn' },
     { label: 'About FinCalc Pro', route: '/about' },
-    { label: 'Contact Us', route: '/contact' },
+    { label: 'Contact Us', route: '/contact-us' },
     { label: 'Frequently Asked Questions', route: '/faq' },
   ];
 
   const legalPages = [
     { label: 'Privacy Policy', route: '/privacy-policy' },
-    { label: 'Terms of Use', route: '/terms' },
+    { label: 'Terms & Conditions', route: '/terms-and-conditions' },
     { label: 'Financial & Investment Disclaimer', route: '/disclaimer' },
     { label: 'Affiliate & Advertising Disclosure', route: '/affiliate-disclosure' },
   ];
