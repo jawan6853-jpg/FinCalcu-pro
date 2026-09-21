@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finance & Crypto Calculators — Free & Accurate Financial Tools</title>
+    <meta name="description" content="Fast, accurate financial and cryptocurrency calculators for profit & loss, ROI, DCA, staking, loans, SIP, compound interest, and investments." />
+    <meta property="og:title" content="Finance & Crypto Calculators — Free & Accurate Financial Tools" />
+    <meta property="og:description" content="Fast, accurate financial and cryptocurrency calculators for profit & loss, ROI, DCA, staking, loans, SIP, compound interest, and investments." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Finance & Crypto Calculators — Free & Accurate Financial Tools" />
+    <meta name="twitter:description" content="Fast, accurate financial and cryptocurrency calculators for profit & loss, ROI, DCA, staking, loans, SIP, compound interest, and investments." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script>
+      (function() {
+        try {
+          const theme = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (theme === 'dark' || (!theme && prefersDark)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.style.colorScheme = 'light';
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="h-full bg-slate-50 text-slate-900 antialiased transition-colors duration-200 dark:bg-slate-950 dark:text-slate-100">
+    <div id="root" class="min-h-full flex flex-col"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
