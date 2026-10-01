@@ -56,9 +56,12 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80">
-            <span className="text-xs font-mono text-indigo-600 dark:text-indigo-400 font-medium">
-              support@fincalc.pro
-            </span>
+            <a
+              href="mailto:jawan6853@gmail.com?subject=Support%20Inquiry%20-%20FinCalc%20Pro"
+              className="text-xs font-mono text-indigo-600 dark:text-indigo-400 font-medium hover:underline flex items-center gap-1.5"
+            >
+              <span>jawan6853@gmail.com</span>
+            </a>
           </div>
         </div>
 
@@ -75,9 +78,12 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80">
-            <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-medium">
-              partners@fincalc.pro
-            </span>
+            <a
+              href="mailto:jawan6853@gmail.com?subject=Partnership%20Inquiry%20-%20FinCalc%20Pro"
+              className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-medium hover:underline flex items-center gap-1.5"
+            >
+              <span>jawan6853@gmail.com</span>
+            </a>
           </div>
         </div>
 
@@ -94,9 +100,12 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80">
-            <span className="text-xs font-mono text-amber-600 dark:text-amber-400 font-medium">
-              privacy@fincalc.pro
-            </span>
+            <a
+              href="mailto:jawan6853@gmail.com?subject=Privacy%20Legal%20Inquiry%20-%20FinCalc%20Pro"
+              className="text-xs font-mono text-amber-600 dark:text-amber-400 font-medium hover:underline flex items-center gap-1.5"
+            >
+              <span>jawan6853@gmail.com</span>
+            </a>
           </div>
         </div>
       </div>
@@ -106,31 +115,42 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
         {/* Left Column: Form */}
         <div className="lg:col-span-7 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs">
           {submitted ? (
-            <div className="text-center py-10 space-y-4">
-              <div className="w-14 h-14 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-xs">
-                <CheckCircle2 className="w-7 h-7" />
+            <div className="text-center py-8 space-y-4">
+              <div className="w-14 h-14 rounded-full bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto shadow-xs">
+                <Mail className="w-7 h-7" />
               </div>
               <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-                Message Successfully Submitted!
+                Your Message is Ready to Send
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto leading-relaxed">
-                Thank you for contacting FinCalc Pro. Your inquiry has been routed to our <span className="font-semibold text-slate-700 dark:text-slate-300">{formData.department}</span> department. A ticket confirmation has been logged, and an engineer will reply to <span className="font-mono font-semibold text-indigo-600 dark:text-indigo-400">{formData.email}</span> within 24–48 hours.
+                Because FinCalc Pro runs as a client-side web application without storing personal message logs on a server, your draft has been formatted below. Click the button to open your email client and send it directly to <span className="font-mono font-semibold text-indigo-600 dark:text-indigo-400">jawan6853@gmail.com</span>.
               </p>
-              <div className="pt-4">
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-left text-xs max-w-lg mx-auto font-mono space-y-1 text-slate-700 dark:text-slate-300">
+                <div><strong>To:</strong> jawan6853@gmail.com</div>
+                <div><strong>Subject:</strong> [{formData.department}] {formData.calculatorRelated}: Message from {formData.name}</div>
+                <div><strong>From:</strong> {formData.name} &lt;{formData.email}&gt;</div>
+                <div className="pt-2 text-slate-600 dark:text-slate-400 font-sans whitespace-pre-wrap">{formData.message}</div>
+              </div>
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a
+                  href={`mailto:jawan6853@gmail.com?subject=${encodeURIComponent(
+                    `[${formData.department}] ${formData.calculatorRelated}: Message from ${formData.name}`
+                  )}&body=${encodeURIComponent(
+                    formData.message + '\n\n---\nFrom: ' + formData.name + ' (' + formData.email + ')'
+                  )}`}
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer"
+                >
+                  <Send className="w-4 h-4" />
+                  <span>Open in Email App to Send</span>
+                </a>
                 <button
+                  type="button"
                   onClick={() => {
                     setSubmitted(false);
-                    setFormData({
-                      name: '',
-                      email: '',
-                      department: 'General Support',
-                      calculatorRelated: 'Crypto Profit Calculator',
-                      message: '',
-                    });
                   }}
-                  className="px-5 py-2.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition-colors cursor-pointer"
+                  className="w-full sm:w-auto px-4 py-2.5 text-xs font-semibold text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                 >
-                  Send Another Message
+                  Edit Draft
                 </button>
               </div>
             </div>

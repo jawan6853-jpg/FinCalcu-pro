@@ -32,7 +32,10 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     return TOOLS.filter((t) => {
       return (
         t.name.toLowerCase().includes(q) ||
+        t.slug.toLowerCase().includes(q) ||
+        t.route.toLowerCase().includes(q) ||
         t.shortDescription.toLowerCase().includes(q) ||
+        t.description.toLowerCase().includes(q) ||
         t.category.toLowerCase().includes(q) ||
         t.categoryLabel.toLowerCase().includes(q) ||
         t.keywords.some((k) => k.toLowerCase().includes(q))

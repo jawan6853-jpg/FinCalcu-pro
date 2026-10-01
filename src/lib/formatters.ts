@@ -81,20 +81,23 @@ export function formatCurrency(
     return `${symbol}0.00`;
   }
 
-  const isNegative = val < 0;
   const absVal = Math.abs(val);
 
+  const decimals = absVal < 1 && absVal > 0 ? Math.min(4, maxDecimals) : maxDecimals;
+  const threshold = Math.pow(10, -decimals) / 2;
+  const isZeroOrNegZero = absVal < threshold;
+  const isNegative = val < 0 && !isZeroOrNegZero;
+  const effectiveVal = isZeroOrNegZero ? 0 : absVal;
+
   if (targetCurrency === 'BTC' || targetCurrency === 'ETH') {
-    const formattedCrypto = absVal.toLocaleString('en-US', {
+    const formattedCrypto = effectiveVal.toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 6,
     });
     return `${isNegative ? '-' : ''}${symbol}${formattedCrypto}`;
   }
 
-  const decimals = absVal < 1 && absVal > 0 ? Math.min(4, maxDecimals) : maxDecimals;
-
-  const formatted = absVal.toLocaleString('en-US', {
+  const formatted = effectiveVal.toLocaleString('en-US', {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   });
@@ -106,7 +109,9 @@ export function formatPercentage(val: number, decimals: number = 2): string {
   if (val === null || val === undefined || isNaN(val) || !isFinite(val)) {
     return '0.00%';
   }
-  return `${val.toLocaleString('en-US', {
+  const threshold = Math.pow(10, -decimals) / 2;
+  const cleanVal = Math.abs(val) < threshold ? 0 : val;
+  return `${cleanVal.toLocaleString('en-US', {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   })}%`;
@@ -116,7 +121,9 @@ export function formatNumber(val: number, maxDecimals: number = 2): string {
   if (val === null || val === undefined || isNaN(val) || !isFinite(val)) {
     return '0';
   }
-  return val.toLocaleString('en-US', {
+  const threshold = Math.pow(10, -maxDecimals) / 2;
+  const cleanVal = Math.abs(val) < threshold ? 0 : val;
+  return cleanVal.toLocaleString('en-US', {
     maximumFractionDigits: maxDecimals,
   });
 }
@@ -128,8 +135,9 @@ export function formatCompactCurrency(val: number, currency?: SupportedCurrency)
   if (val === null || val === undefined || isNaN(val) || !isFinite(val)) {
     return `${symbol}0`;
   }
-  const isNegative = val < 0;
-  const absVal = Math.abs(val);
+  const isZero = Math.abs(val) < 0.01;
+  const isNegative = val < 0 && !isZero;
+  const absVal = isZero ? 0 : Math.abs(val);
 
   if (absVal >= 1000000000) {
     return `${isNegative ? '-' : ''}${symbol}${(absVal / 1000000000).toFixed(1)}B`;
@@ -145,12 +153,39 @@ export function formatCompactCurrency(val: number, currency?: SupportedCurrency)
 
 export function sanitizeNumber(value: any, fallback: number = 0): number {
   if (typeof value === 'number') {
-    return isFinite(value) ? value : fallback;
+    return isFinite(value) && !isNaN(value) ? value : fallback;
   }
   if (typeof value === 'string') {
     const cleaned = value.replace(/[^0-9.-]/g, '');
     const parsed = parseFloat(cleaned);
-    return isFinite(parsed) ? parsed : fallback;
+    return isFinite(parsed) && !isNaN(parsed) ? parsed : fallback;
   }
   return fallback;
+}
+
+/**
+ * Safely parses calculator input values, distinguishing between an intentional 0
+ * and missing/undefined/NaN input fields.
+ */
+export function parseInput(val: unknown, fallback: number): number {
+  if (val === undefined || val === null || val === '') return fallback;
+  const num = typeof val === 'number' ? val : Number(val);
+  return isFinite(num) && !isNaN(num) ? num : fallback;
+}
+
+/**
+ * Performs safe mathematical division guarding against division by zero and returning a fallback.
+ */
+export function safeDivision(numerator: number, denominator: number, fallback: number = 0): number {
+  if (denominator === 0 || !isFinite(denominator) || isNaN(denominator)) return fallback;
+  const res = numerator / denominator;
+  return isFinite(res) && !isNaN(res) ? res : fallback;
+}
+
+/**
+ * Clamps a number within min and max boundaries with finite fallback.
+ */
+export function clampNumber(value: unknown, min: number, max: number, fallback: number): number {
+  const parsed = parseInput(value, fallback);
+  return Math.min(Math.max(parsed, min), max);
 }

@@ -1,5 +1,13 @@
 import { ToolItem } from '../types';
 
+export const PRODUCTION_ORIGIN =
+  (import.meta.env?.VITE_SITE_URL as string | undefined) ||
+  'https://fincalcu-pro-jawan-kappa.vercel.app';
+
+export function getCanonicalOrigin(): string {
+  return PRODUCTION_ORIGIN;
+}
+
 export interface SeoConfig {
   title: string;
   description: string;
@@ -27,6 +35,29 @@ export function updatePageSeo(config: SeoConfig) {
   }
   metaDesc.setAttribute('content', config.description);
 
+  // Meta Robots & Googlebot Directives (ensures 100% indexing in Google Search Console)
+  let metaRobots = document.querySelector('meta[name="robots"]');
+  if (!metaRobots) {
+    metaRobots = document.createElement('meta');
+    metaRobots.setAttribute('name', 'robots');
+    document.head.appendChild(metaRobots);
+  }
+  metaRobots.setAttribute(
+    'content',
+    'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
+  );
+
+  let metaGooglebot = document.querySelector('meta[name="googlebot"]');
+  if (!metaGooglebot) {
+    metaGooglebot = document.createElement('meta');
+    metaGooglebot.setAttribute('name', 'googlebot');
+    document.head.appendChild(metaGooglebot);
+  }
+  metaGooglebot.setAttribute(
+    'content',
+    'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
+  );
+
   // Meta Keywords
   if (config.tool?.keywords && config.tool.keywords.length > 0) {
     let metaKeywords = document.querySelector('meta[name="keywords"]');
@@ -38,8 +69,8 @@ export function updatePageSeo(config: SeoConfig) {
     metaKeywords.setAttribute('content', config.tool.keywords.join(', '));
   }
 
-  // Canonical
-  const origin = typeof window !== 'undefined' ? window.location.origin : '';
+  // Canonical URL (guaranteed valid for Google Search Console crawl)
+  const origin = getCanonicalOrigin();
   const canonicalUrl = `${origin}${config.path}`;
   let linkCanonical = document.querySelector('link[rel="canonical"]');
   if (!linkCanonical) {
@@ -61,14 +92,17 @@ export function updatePageSeo(config: SeoConfig) {
     el.setAttribute('content', content);
   }
 
+  const ogImageUrl = `${origin}/og-image.png`;
   setMeta('og:title', fullTitle);
   setMeta('og:description', config.description);
   setMeta('og:url', canonicalUrl);
   setMeta('og:type', 'website');
-  setMeta('og:site_name', 'Finance & Crypto Calculators');
+  setMeta('og:site_name', 'FinCalc Pro');
+  setMeta('og:image', ogImageUrl);
   setMeta('twitter:card', 'summary_large_image', true);
   setMeta('twitter:title', fullTitle, true);
   setMeta('twitter:description', config.description, true);
+  setMeta('twitter:image', ogImageUrl, true);
 
   // Structured Data (JSON-LD)
   let scriptLd = document.getElementById('json-ld-schema') as HTMLScriptElement | null;
@@ -90,6 +124,14 @@ export function updatePageSeo(config: SeoConfig) {
         target: `${origin}/calculators?q={search_term_string}`,
         'query-input': 'required name=search_term_string',
       },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'FinCalc Pro',
+      url: origin,
+      logo: `${origin}/favicon.svg`,
+      description: 'Institutional-grade finance and cryptocurrency calculation tools.',
     },
   ];
 

@@ -1,13 +1,20 @@
 import React from 'react';
-import { ShieldAlert, BookOpen, Calculator, HelpCircle, CheckCircle2, Zap, Sparkles } from 'lucide-react';
 import { ToolItem } from '../../types';
 import { Breadcrumbs } from './Breadcrumbs';
 import { DynamicIcon } from './DynamicIcon';
 import { FAQAccordion } from './FAQAccordion';
 import { AdPlaceholder } from './AdPlaceholder';
-import { AdsterraBanner } from './AdsterraBanner';
-import { TOOLS } from '../../lib/tools';
 import { useCurrency } from '../../context/CurrencyContext';
+import {
+  Calculator,
+  BookOpen,
+  Sparkles,
+  HelpCircle,
+  ShieldAlert,
+  ArrowRight,
+  TrendingUp,
+} from 'lucide-react';
+import { TOOLS } from '../../lib/tools';
 
 interface CalculatorLayoutProps {
   tool: ToolItem;
@@ -33,67 +40,72 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
   mobileQuickSummary,
   onNavigate,
 }) => {
-  const categoryRoute = tool.category === 'crypto' ? '/crypto' : '/finance';
-  const breadcrumbItems = [
-    { label: tool.categoryLabel, href: categoryRoute },
+  const { currency, currencySymbol, rates } = useCurrency();
+  const currentRate = rates?.[currency];
+
+  const relatedToolItems = (tool.relatedTools || [])
+    .map((rId) => TOOLS.find((t) => t.id === rId || t.slug === rId))
+    .filter((t): t is ToolItem => !!t)
+    .slice(0, 5);
+
+  const breadcrumbs = [
+    { label: 'Home', href: '/' },
+    { label: tool.categoryLabel, href: tool.category === 'crypto' ? '/crypto' : '/finance' },
     { label: tool.name },
   ];
 
-  const relatedToolItems = TOOLS.filter(
-    (t) => tool.relatedTools.includes(t.id) || (t.category === tool.category && t.id !== tool.id)
-  ).slice(0, 4);
+  const inputKeyList = tool.exampleCalculation?.inputs
+    ? Object.keys(tool.exampleCalculation.inputs)
+    : [];
 
-  const { currency, currencySymbol, rates } = useCurrency();
-  const currentRate = rates[currency];
+  const outputEntries = tool.exampleCalculation?.outputs
+    ? Object.entries(tool.exampleCalculation.outputs)
+    : [];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-      {/* Breadcrumbs */}
-      <Breadcrumbs items={breadcrumbItems} onNavigate={onNavigate} />
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+      <Breadcrumbs items={breadcrumbs} onNavigate={onNavigate} />
 
-      {/* Hero / Header Section */}
+      {/* Header Section */}
       <div className="mb-8">
-        <div className="flex items-center gap-3 mb-2">
-          <div
-            className={`p-2.5 rounded-xl ${
-              tool.category === 'crypto'
-                ? 'bg-amber-100/80 text-amber-700 dark:bg-amber-950/60 dark:text-amber-400'
-                : 'bg-indigo-100/80 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-400'
-            }`}
-          >
-            <DynamicIcon name={tool.icon} className="w-6 h-6" />
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 sm:p-3 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 shadow-xs">
+              <DynamicIcon name={tool.icon} className="w-6 h-6 sm:w-7 sm:h-7" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                  {tool.categoryLabel}
+                </span>
+                <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700" />
+                <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                  Formula-Based Calculator
+                </span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+                {tool.name}
+              </h1>
+            </div>
           </div>
-          <span
-            className={`text-xs px-2.5 py-0.5 rounded-full font-semibold uppercase tracking-wider ${
-              tool.category === 'crypto'
-                ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300'
-                : 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-300'
-            }`}
-          >
-            {tool.categoryLabel}
-          </span>
         </div>
 
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-          {tool.name}
-        </h1>
-        <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
           {tool.description}
         </p>
 
-        {/* Quick How to Use Guide for Users & Google Search Snippets */}
-        <div className="mt-4 p-3.5 sm:p-4 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100/80 dark:border-indigo-900/40 max-w-3xl">
-          <div className="flex items-center gap-2 mb-2 text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-400">
-            <Zap className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-            <span>How To Use This Calculator</span>
-          </div>
-          <ol className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 text-xs text-slate-700 dark:text-slate-300">
+        {/* Quick Instructions Banner */}
+        <div className="mt-4 p-3.5 sm:p-4 rounded-xl bg-slate-100/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+          <span className="font-semibold text-slate-800 dark:text-slate-200 block mb-1">
+            Quick User Guide:
+          </span>
+          <ol className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
             <li className="flex items-start gap-1.5">
               <span className="flex items-center justify-center w-4 h-4 rounded-full bg-indigo-600 text-white font-mono font-bold text-[10px] shrink-0 mt-0.5">
                 1
               </span>
               <span>
-                <strong>Enter Values:</strong> Input your financial numbers in the parameter fields on the left.
+                <strong>Enter Values:</strong> Fill in your financial parameters into the input fields below.
               </span>
             </li>
             <li className="flex items-start gap-1.5">
@@ -101,7 +113,7 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
                 2
               </span>
               <span>
-                <strong>Instant Calculation:</strong> View real-time results, net ROI, and visual charts update dynamically.
+                <strong>Instant Calculation:</strong> Real-time results, charts, and breakdowns update automatically.
               </span>
             </li>
             <li className="flex items-start gap-1.5">
@@ -109,34 +121,14 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
                 3
               </span>
               <span>
-                <strong>Save or Export:</strong> Download a report or save this calculation to compare alternatives.
+                <strong>Save or Export:</strong> Save your session or copy details for records and analysis.
               </span>
             </li>
           </ol>
         </div>
-
-        {/* SEO Keywords Tag Cloud */}
-        {tool.keywords && tool.keywords.length > 0 && (
-          <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400">
-            <span className="font-semibold text-slate-400 dark:text-slate-500">Related:</span>
-            {tool.keywords.map((kw, idx) => (
-              <span
-                key={idx}
-                className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium"
-              >
-                #{kw.replace(/\s+/g, '')}
-              </span>
-            ))}
-          </div>
-        )}
       </div>
 
-      {/* Adsterra Container 1: Directly ABOVE Calculator Form (below main page title) */}
-      <div id="ad-container-above-calculator" className="my-6 w-full">
-        <AdsterraBanner />
-      </div>
-
-      {/* Core Calculator Two-Column Work Area */}
+      {/* Core Calculator Two-Column Work Area (Immediate interaction) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Calculator Inputs */}
         <div className="lg:col-span-6 bg-white dark:bg-slate-900 p-6 sm:p-7 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs">
@@ -176,9 +168,9 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
             {resultsComponent}
           </div>
 
-          {/* Adsterra Container 2: Directly BELOW Final Calculation Results Box */}
+          {/* Ad Container: Positioned Below Results */}
           <div id="ad-container-below-results" className="w-full">
-            <AdsterraBanner />
+            <AdPlaceholder slotId="ad-slot-sidebar" />
           </div>
 
           {/* Optional Visual Chart */}
@@ -193,54 +185,75 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
         </div>
       )}
 
+      {/* Mid-Content Ad Container */}
+      <div id="ad-container-mid-content" className="w-full my-8">
+        <AdPlaceholder slotId="ad-slot-content" />
+      </div>
+
       {/* In-Depth Educational Content, Formula, & Example */}
-      <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Formula & Explanation */}
         <div className="lg:col-span-7 space-y-8">
-          {/* Rich SEO Content Article */}
+          {/* Calculator-Specific Educational Guide */}
           <article className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs prose prose-slate dark:prose-invert max-w-none">
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2 mb-4">
               <Sparkles className="w-5 h-5 text-indigo-500" />
-              <span>The Best Crypto Calculator & Finance Calculator Pro Guide</span>
+              <span>Understanding the {tool.name}</span>
             </h2>
             <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-              Navigating cryptocurrency markets and digital asset trading requires institutional-grade precision. Whether you are scalping volatile intraday swings, swing trading altcoins, or dollar-cost averaging into Bitcoin and Ethereum, utilizing the <strong>Best Crypto Calculator</strong> is vital to protecting your capital and guaranteeing profitability. FinCalc Pro provides a verified <strong>Finance Calculator Pro</strong> suite and <strong>Investment Return Calculator</strong> engineered to eliminate guesswork, account for exchange taker fees, and calculate exact return on investment (ROI).
+              {tool.description} This financial calculation engine evaluates your parameters through deterministic mathematical modeling, allowing you to quantify costs, project outcomes, and compare alternative financial strategies with precision.
             </p>
 
             <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 mt-6 mb-2.5">
-              How to use this Crypto Profit Calculator
+              How to Use This {tool.name}
             </h3>
             <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
-              Understanding <strong>how to calculate crypto profit</strong> takes only three straightforward steps:
+              Calculating your estimated figures takes three simple steps:
             </p>
-            <ol className="list-decimal pl-5 space-y-1.5 text-sm text-slate-600 dark:text-slate-400 mb-4">
-              <li><strong>Select Your Base Currency:</strong> Choose USD, PKR, INR, EUR, or your local regional currency using the top selector next to the inputs.</li>
-              <li><strong>Enter Buy and Sell Values:</strong> Input your buying price per coin, anticipated or finalized selling price, and total cryptocurrency quantity.</li>
-              <li><strong>Input Trading Fees:</strong> Enter your exchange's maker/taker fee percentage (or flat rate) to automatically <strong>calculate trading fees</strong> and view your 100% net realized PnL.</li>
+            <ol className="list-decimal pl-5 space-y-2 text-sm text-slate-600 dark:text-slate-400 mb-4">
+              <li>
+                <strong>Configure Base Values:</strong> Enter your financial inputs{' '}
+                {inputKeyList.length > 0
+                  ? `(such as ${inputKeyList.slice(0, 3).join(', ')}${inputKeyList.length > 3 ? ', and related variables' : ''})`
+                  : ''}{' '}
+                into the input form.
+              </li>
+              <li>
+                <strong>Review Calculated Metrics:</strong> Examine the real-time breakdown of estimated values, percentage rates, and visual projections.
+              </li>
+              <li>
+                <strong>Evaluate Sensitivity:</strong> Test different rates, time horizons, or contribution amounts to identify optimal scenarios for your budget or portfolio.
+              </li>
             </ol>
 
             <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 mt-6 mb-2.5">
-              Understanding Buy and Sell Price
+              Interpreting Your Calculation Results
             </h3>
-            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-              Your <em>Buy Price</em> (cost basis) represents the total cash expended to acquire each crypto token, including purchase slippage. The <em>Sell Price</em> indicates your target liquidation price on the market. While the gross spread between entry and exit prices suggests theoretical gain, your real wallet balance is determined purely by Net Profit after deducting all entry, exit, and network gas commissions.
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
+              The primary metrics provided by this calculator represent formula-based estimates designed to clarify financial trade-offs:
             </p>
-
-            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 mt-6 mb-2.5">
-              How Trading Fees Affect Your ROI
-            </h3>
-            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-2">
-              Every major cryptocurrency exchange (such as Binance, Coinbase, Bybit, OKX, and Kraken) levies maker and taker commissions on trade executions. When trading fees are overlooked, high-frequency traders or leveraged swing positions can quickly find what seemed like a profitable trade turning into a net loss. Calculating trading fees across both buy and sell legs ensures you pinpoint your exact break-even target before placing orders on the book.
+            {outputEntries.length > 0 && (
+              <ul className="list-disc pl-5 space-y-1.5 text-sm text-slate-600 dark:text-slate-400 mb-4">
+                {outputEntries.map(([key, val]) => (
+                  <li key={key}>
+                    <strong>{key}:</strong> Estimated baseline sample value {val}, calculated using standard industry compounding or discounting logic.
+                  </li>
+                ))}
+              </ul>
+            )}
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              Use these metrics to establish realistic benchmarks and compare against your personal financial plan, loan offers, or investment alternatives.
             </p>
           </article>
 
+          {/* Formula Card */}
           <div className="bg-white dark:bg-slate-900 p-6 sm:p-7 rounded-2xl border border-slate-200 dark:border-slate-800">
             <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 mb-4">
               <BookOpen className="w-5 h-5 text-indigo-500" />
               <span>Formula & Mathematical Methodology</span>
             </h2>
 
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-sm text-indigo-700 dark:text-indigo-300 font-semibold mb-4">
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-sm text-indigo-700 dark:text-indigo-300 font-semibold mb-4 overflow-x-auto">
               {tool.formulaSummary}
             </div>
 
@@ -276,9 +289,9 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
                 </span>
                 <dl className="space-y-1">
                   {Object.entries(tool.exampleCalculation.inputs).map(([k, v]) => (
-                    <div key={k} className="flex justify-between">
-                      <dt className="text-slate-500">{k}:</dt>
-                      <dd className="text-slate-900 dark:text-slate-200 font-semibold">{v}</dd>
+                    <div key={k} className="flex justify-between gap-2">
+                      <dt className="text-slate-500 truncate">{k}:</dt>
+                      <dd className="text-slate-900 dark:text-slate-200 font-semibold shrink-0">{v}</dd>
                     </div>
                   ))}
                 </dl>
@@ -290,9 +303,9 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
                 </span>
                 <dl className="space-y-1">
                   {Object.entries(tool.exampleCalculation.outputs).map(([k, v]) => (
-                    <div key={k} className="flex justify-between">
-                      <dt className="text-indigo-600/80 dark:text-indigo-400">{k}:</dt>
-                      <dd className="text-indigo-950 dark:text-indigo-100 font-bold">{v}</dd>
+                    <div key={k} className="flex justify-between gap-2">
+                      <dt className="text-indigo-600/80 dark:text-indigo-400 truncate">{k}:</dt>
+                      <dd className="text-indigo-950 dark:text-indigo-100 font-bold shrink-0">{v}</dd>
                     </div>
                   ))}
                 </dl>
@@ -304,8 +317,8 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
           <div className="p-5 rounded-2xl border border-amber-200 dark:border-amber-900/50 bg-amber-50/40 dark:bg-amber-950/20 text-xs sm:text-sm text-amber-900 dark:text-amber-200 leading-relaxed flex items-start gap-3">
             <ShieldAlert className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
             <div>
-              <strong className="font-semibold block mb-1">Important Calculation Assumptions:</strong>
-              Financial formulas assume consistent intervals and fixed rates over the simulated period. Actual bank, exchange, or market conditions may vary due to slippage, compounding variations, rate adjustments, or local tax bracket differences.
+              <strong className="font-semibold block mb-1">Important Calculation Assumptions & Limitations:</strong>
+              Financial formulas assume consistent intervals, compounding frequencies, and constant rates over the simulated period. Actual bank policies, exchange execution slippage, lender requirements, market return fluctuations, and local tax laws will produce variances in real-world results. All calculations are provided for informational and educational purposes only.
             </div>
           </div>
         </div>
@@ -319,8 +332,9 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
 
           {/* Related Tools */}
           <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
-            <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-4">
-              Related Financial Calculators
+            <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-indigo-500" />
+              <span>Related Financial Calculators</span>
             </h3>
             <div className="space-y-3">
               {relatedToolItems.map((rTool) => (

@@ -3,6 +3,7 @@ import { Layers, Search } from 'lucide-react';
 import { TOOLS } from '../../lib/tools';
 import { CalculatorCard } from '../common/CalculatorCard';
 import { Breadcrumbs } from '../common/Breadcrumbs';
+import { AdPlaceholder } from '../common/AdPlaceholder';
 
 interface AllToolsPageProps {
   onNavigate: (route: string) => void;
@@ -29,7 +30,7 @@ export const AllToolsPage: React.FC<AllToolsPageProps> = ({ onNavigate }) => {
             <span>Complete Calculator Directory</span>
           </h1>
           <p className="mt-1 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-            Browse all 15 financial planning and cryptocurrency calculation engines
+            Browse all {TOOLS.length} financial planning and cryptocurrency calculation engines
           </p>
         </div>
 
@@ -43,6 +44,10 @@ export const AllToolsPage: React.FC<AllToolsPageProps> = ({ onNavigate }) => {
             className="w-full pl-9 pr-4 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
+      </div>
+
+      <div className="my-6">
+        <AdPlaceholder slotId="all-tools-top-slot" />
       </div>
 
       {filtered.length === 0 ? (

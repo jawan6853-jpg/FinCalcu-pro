@@ -15,7 +15,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ onNavigate }) => {
     { label: 'Home Page', route: '/' },
     { label: 'Cryptocurrency Hub', route: '/crypto' },
     { label: 'Personal Finance Hub', route: '/finance' },
-    { label: 'All 15 Calculators Directory', route: '/calculators' },
+    { label: 'All Calculators Directory', route: '/calculators' },
     { label: 'Learn & Financial Guides', route: '/learn' },
     { label: 'About FinCalc Pro', route: '/about' },
     { label: 'Contact Us', route: '/contact-us' },

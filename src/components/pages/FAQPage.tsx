@@ -12,7 +12,7 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onNavigate }) => {
     {
       question: 'Are FinCalc Pro calculators completely free?',
       answer:
-        'Yes. All 15 calculators are completely free to use without requiring an account, sign-up, or subscription.',
+        'Yes. All 100 financial and cryptocurrency calculators are completely free to use without requiring an account, sign-up, or subscription.',
     },
     {
       question: 'Do you store or transmit any calculation data?',

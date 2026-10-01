@@ -1,8 +1,68 @@
 {
-  "rewrites": [
+  "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
     {
       "source": "/(.*)",
-      "destination": "/"
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/crypto-roi-calculator",
+      "destination": "/calculators/crypto-roi-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/crypto-dca-calculator",
+      "destination": "/calculators/crypto-dca-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/crypto-compound-interest-calculator",
+      "destination": "/calculators/crypto-compound-interest-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/crypto-tax-calculator",
+      "destination": "/calculators/crypto-tax-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/compound-interest-calculator",
+      "destination": "/calculators/compound-interest-calculator",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!assets/|robots\\.txt|sitemap\\.xml|favicon\\.svg|.*\\..*).*)",
+      "destination": "/index.html"
     }
   ]
 }

@@ -25,6 +25,136 @@ import { calculateInvestmentReturn, InvestmentReturnInput } from '../../lib/calc
 import { calculateSavings, SavingsInput } from '../../lib/calculators/savings';
 import { calculateMortgage, MortgageInput } from '../../lib/calculators/mortgage';
 
+// 15 New Calculators
+import {
+  CAGRView,
+  DividendView,
+  InflationView,
+  RetirementView,
+  DebtPayoffView,
+  AmortizationView,
+  LoanInterestView,
+  LeverageView,
+  MarginView,
+  LiquidationPriceView,
+  FuturesPnlView,
+  RiskRewardView,
+  TakeProfitView,
+  BreakEvenPriceView,
+  ApyAprView,
+} from './NewCalculatorViews';
+
+// 15 Additional Calculators
+import {
+  FutureValueView,
+  PresentValueView,
+  RoiCalculatorView,
+  NpvView,
+  IrrView,
+  MarginOfSafetyView,
+} from './InvestmentViews';
+import {
+  CarLoanView,
+  PersonalLoanView,
+  MortgageAffordabilityView,
+  ExtraPaymentView,
+  LoanComparisonView,
+} from './LoanViews';
+import {
+  PositionSizeView,
+  StopLossView,
+  PipValueView,
+  TradingFeeView,
+} from './TradingViews';
+
+// Batch 3 Calculators (Total 60)
+import {
+  BudgetView,
+  SalaryView,
+  TakeHomePayView,
+  SavingsGoalView,
+  EmergencyFundView,
+} from './PersonalBudgetViews';
+import {
+  AssetAllocationView,
+  StockAverageView,
+  DividendReinvestmentView,
+  InvestmentFeeView,
+  BondYieldView,
+} from './PortfolioViews';
+import {
+  CryptoAveragePriceView,
+  CryptoMarketCapView,
+  CryptoGasFeeView,
+  CryptoConversionView,
+  CryptoCompoundGrowthView,
+} from './CryptoUtilityViews';
+
+// Batch 4 Calculators (Total 75)
+import {
+  SavingsInterestView,
+  SimpleInterestView,
+  Batch4CompoundInterestView,
+  RuleOf72View,
+} from './InterestViews';
+import {
+  DiscountView,
+  PercentageChangeView,
+  ProfitMarginView,
+  MarkupView,
+  BusinessBreakEvenView,
+  CashFlowView,
+} from './CommercialViews';
+import {
+  CapitalGainsView,
+  StockProfitView,
+  Batch4CryptoROIView,
+  Batch4CryptoTaxView,
+  Batch4CryptoDCAView,
+} from './MarketViews';
+
+// Batch 5 Calculators (Total 90)
+import {
+  NetWorthView,
+  DebtToIncomeView,
+  SavingsRateView,
+  FinancialIndependenceView,
+  FireCalculatorView,
+} from './WealthViews';
+import {
+  RetirementWithdrawalView,
+  SafeWithdrawalRateView,
+  AnnuityView,
+  BondPriceView,
+  YieldToMaturityView,
+} from './RetirementViews';
+import {
+  StockValuationView,
+  PeRatioView,
+  PositionRiskView,
+  CryptoBreakEvenRoiView,
+  CryptoDcaStrategyView,
+} from './ValuationViews';
+
+// Batch 6 Calculators (Total 100)
+import {
+  ImpermanentLossView,
+  CryptoApyToAprView,
+  CryptoMiningView,
+  BalloonLoanView,
+  HelocPaymentView,
+  BiweeklyMortgageView,
+  CapmView,
+  DividendPayoutRatioView,
+  PortfolioRebalancingView,
+  WaccView,
+  CdLadderView,
+  CollegeSavingsView,
+  HighYieldSavingsView,
+  WorkingCapitalView,
+  SalesTaxView,
+} from './Batch6Views';
+
 interface CalculatorViewProps {
   tool: ToolItem;
   onNavigate: (route: string) => void;
@@ -189,7 +319,7 @@ export const CryptoProfitView: React.FC<CalculatorViewProps> = ({ tool, onNaviga
           <label className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
             <span>Trading Fees (%)</span>
             <span className="text-[10px] font-normal text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-1.5 py-0.5 rounded font-mono">
-              100% accurate PnL
+              Net Realized PnL
             </span>
           </label>
           <span className="text-[11px] font-mono text-slate-500">
@@ -369,6 +499,7 @@ export const CryptoProfitView: React.FC<CalculatorViewProps> = ({ tool, onNaviga
 
 // 2. CRYPTO ROI
 export const CryptoROIView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => {
+  const { currency, currencySymbol } = useCurrency();
   const initialValues: CryptoROIInput = {
     initialInvestment: 3000,
     currentValue: 8400,
@@ -380,7 +511,7 @@ export const CryptoROIView: React.FC<CalculatorViewProps> = ({ tool, onNavigate 
     <div className="space-y-4">
       <div>
         <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-          Initial Capital Invested ($)
+          Initial Capital Invested (${currencySymbol})
         </label>
         <input
           type="number"
@@ -395,7 +526,7 @@ export const CryptoROIView: React.FC<CalculatorViewProps> = ({ tool, onNavigate 
 
       <div>
         <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-          Current or Projected Value ($)
+          Current or Projected Value (${currencySymbol})
         </label>
         <input
           type="number"
@@ -473,6 +604,7 @@ export const CryptoROIView: React.FC<CalculatorViewProps> = ({ tool, onNavigate 
 
 // 3. CRYPTO DCA
 export const CryptoDCAView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => {
+  const { currency, currencySymbol } = useCurrency();
   const initialValues: CryptoDCAInput = {
     initialInvestment: 500,
     recurringInvestment: 100,
@@ -489,7 +621,7 @@ export const CryptoDCAView: React.FC<CalculatorViewProps> = ({ tool, onNavigate 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Initial Starting Amount ($)
+            Initial Starting Amount (${currencySymbol})
           </label>
           <input
             type="number"
@@ -503,7 +635,7 @@ export const CryptoDCAView: React.FC<CalculatorViewProps> = ({ tool, onNavigate 
         </div>
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Recurring Investment ($)
+            Recurring Investment (${currencySymbol})
           </label>
           <input
             type="number"
@@ -552,7 +684,7 @@ export const CryptoDCAView: React.FC<CalculatorViewProps> = ({ tool, onNavigate 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Average Buy Price ($)
+            Average Buy Price (${currencySymbol})
           </label>
           <input
             type="number"
@@ -566,7 +698,7 @@ export const CryptoDCAView: React.FC<CalculatorViewProps> = ({ tool, onNavigate 
         </div>
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Current Market Price ($)
+            Current Market Price (${currencySymbol})
           </label>
           <input
             type="number"
@@ -642,6 +774,7 @@ export const CryptoDCAView: React.FC<CalculatorViewProps> = ({ tool, onNavigate 
 
 // 4. CRYPTO STAKING
 export const CryptoStakingView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => {
+  const { currency, currencySymbol } = useCurrency();
   const initialValues: CryptoStakingInput = {
     principal: 25,
     rate: 6.8,
@@ -778,6 +911,7 @@ export const CryptoStakingView: React.FC<CalculatorViewProps> = ({ tool, onNavig
 
 // 5. TRADING FEES
 export const CryptoTradingFeeView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => {
+  const { currency, currencySymbol } = useCurrency();
   const initialValues: CryptoTradingFeeInput = {
     tradeType: 'roundtrip',
     orderType: 'taker',
@@ -791,7 +925,7 @@ export const CryptoTradingFeeView: React.FC<CalculatorViewProps> = ({ tool, onNa
     <div className="space-y-4">
       <div>
         <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-          Trade Transaction Volume ($)
+          Trade Transaction Volume (${currencySymbol})
         </label>
         <input
           type="number"
@@ -896,6 +1030,7 @@ export const CryptoTradingFeeView: React.FC<CalculatorViewProps> = ({ tool, onNa
 
 // 6. BREAK-EVEN
 export const CryptoBreakEvenView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => {
+  const { currency, currencySymbol } = useCurrency();
   const initialValues: CryptoBreakEvenInput = {
     entryPrice: 3200,
     quantity: 2.5,
@@ -911,7 +1046,7 @@ export const CryptoBreakEvenView: React.FC<CalculatorViewProps> = ({ tool, onNav
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Entry / Buy Price ($)
+            Entry / Buy Price (${currencySymbol})
           </label>
           <input
             type="number"
@@ -972,7 +1107,7 @@ export const CryptoBreakEvenView: React.FC<CalculatorViewProps> = ({ tool, onNav
 
       <div>
         <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-          Gas / Network / Flat Fees ($)
+          Gas / Network / Flat Fees (${currencySymbol})
         </label>
         <input
           type="number"
@@ -1047,6 +1182,7 @@ export const CryptoBreakEvenView: React.FC<CalculatorViewProps> = ({ tool, onNav
 
 // 7. POSITION SIZE
 export const CryptoPositionSizeView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => {
+  const { currency, currencySymbol } = useCurrency();
   const initialValues: CryptoPositionSizeInput = {
     accountBalance: 25000,
     riskPercentage: 1.5,
@@ -1061,7 +1197,7 @@ export const CryptoPositionSizeView: React.FC<CalculatorViewProps> = ({ tool, on
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Total Account Balance ($)
+            Total Account Balance (${currencySymbol})
           </label>
           <input
             type="number"
@@ -1093,7 +1229,7 @@ export const CryptoPositionSizeView: React.FC<CalculatorViewProps> = ({ tool, on
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Entry Price ($)
+            Entry Price (${currencySymbol})
           </label>
           <input
             type="number"
@@ -1107,7 +1243,7 @@ export const CryptoPositionSizeView: React.FC<CalculatorViewProps> = ({ tool, on
         </div>
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Stop-Loss Price ($)
+            Stop-Loss Price (${currencySymbol})
           </label>
           <input
             type="number"
@@ -1179,6 +1315,7 @@ export const CryptoPositionSizeView: React.FC<CalculatorViewProps> = ({ tool, on
 
 // 8. CRYPTO COMPOUND
 export const CryptoCompoundView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => {
+  const { currency, currencySymbol } = useCurrency();
   const initialValues: CryptoCompoundInput = {
     initialPrincipal: 5000,
     monthlyContribution: 250,
@@ -1194,7 +1331,7 @@ export const CryptoCompoundView: React.FC<CalculatorViewProps> = ({ tool, onNavi
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Initial Principal ($)
+            Initial Principal (${currencySymbol})
           </label>
           <input
             type="number"
@@ -1208,7 +1345,7 @@ export const CryptoCompoundView: React.FC<CalculatorViewProps> = ({ tool, onNavi
         </div>
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Monthly Addition ($)
+            Monthly Addition (${currencySymbol})
           </label>
           <input
             type="number"
@@ -1319,6 +1456,7 @@ export const CryptoCompoundView: React.FC<CalculatorViewProps> = ({ tool, onNavi
 
 // 9. CRYPTO TAX
 export const CryptoTaxView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => {
+  const { currency, currencySymbol } = useCurrency();
   const initialValues: CryptoTaxInput = {
     costBasis: 12000,
     saleProceeds: 28000,
@@ -1334,7 +1472,7 @@ export const CryptoTaxView: React.FC<CalculatorViewProps> = ({ tool, onNavigate 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Total Cost Basis ($)
+            Total Cost Basis (${currencySymbol})
           </label>
           <input
             type="number"
@@ -1348,7 +1486,7 @@ export const CryptoTaxView: React.FC<CalculatorViewProps> = ({ tool, onNavigate 
         </div>
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Sale Proceeds ($)
+            Sale Proceeds (${currencySymbol})
           </label>
           <input
             type="number"
@@ -1457,6 +1595,11 @@ export const CryptoTaxView: React.FC<CalculatorViewProps> = ({ tool, onNavigate 
         />
       </div>
 
+      <div className="p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
+        <strong className="font-semibold block mb-0.5">Important Tax Notice:</strong>
+        Cryptocurrency tax treatment, wash-sale rules, and bracket schedules vary widely across global, federal, and state jurisdictions. This calculation provides an illustrative mathematical estimate and does not constitute certified tax or legal advice. Consult a licensed CPA or tax professional.
+      </div>
+
       <CalculationActions
         title="Crypto Tax Calculation"
         onReset={() => setInputs(initialValues)}
@@ -1490,6 +1633,7 @@ export const CryptoTaxView: React.FC<CalculatorViewProps> = ({ tool, onNavigate 
 
 // 10. LOAN / EMI
 export const LoanView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => {
+  const { currency, currencySymbol } = useCurrency();
   const initialValues: LoanInput = {
     principal: 35000,
     annualInterestRate: 7.2,
@@ -1502,7 +1646,7 @@ export const LoanView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) =>
     <div className="space-y-4">
       <div>
         <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-          Loan Principal Amount ($)
+          Loan Principal Amount (${currencySymbol})
         </label>
         <input
           type="number"
@@ -1646,6 +1790,7 @@ export const LoanView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) =>
 
 // 11. SIP
 export const SIPView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => {
+  const { currency, currencySymbol } = useCurrency();
   const initialValues: SIPInput = {
     monthlyInvestment: 500,
     expectedAnnualReturn: 12,
@@ -1658,7 +1803,7 @@ export const SIPView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => 
     <div className="space-y-4">
       <div>
         <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-          Monthly Investment Amount ($)
+          Monthly Investment Amount (${currencySymbol})
         </label>
         <input
           type="number"
@@ -1787,6 +1932,7 @@ export const SIPView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => 
 
 // 12. COMPOUND INTEREST
 export const CompoundInterestView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => {
+  const { currency, currencySymbol } = useCurrency();
   const initialValues: CompoundInterestInput = {
     initialPrincipal: 10000,
     monthlyContribution: 300,
@@ -1802,7 +1948,7 @@ export const CompoundInterestView: React.FC<CalculatorViewProps> = ({ tool, onNa
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Initial Starting Balance ($)
+            Initial Starting Balance (${currencySymbol})
           </label>
           <input
             type="number"
@@ -1816,7 +1962,7 @@ export const CompoundInterestView: React.FC<CalculatorViewProps> = ({ tool, onNa
         </div>
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Monthly Contribution ($)
+            Monthly Contribution (${currencySymbol})
           </label>
           <input
             type="number"
@@ -1944,6 +2090,7 @@ export const CompoundInterestView: React.FC<CalculatorViewProps> = ({ tool, onNa
 
 // 13. INVESTMENT RETURN
 export const InvestmentReturnView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => {
+  const { currency, currencySymbol } = useCurrency();
   const initialValues: InvestmentReturnInput = {
     initialInvestment: 15000,
     monthlyContribution: 200,
@@ -1958,7 +2105,7 @@ export const InvestmentReturnView: React.FC<CalculatorViewProps> = ({ tool, onNa
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Initial Outlay ($)
+            Initial Outlay (${currencySymbol})
           </label>
           <input
             type="number"
@@ -1972,7 +2119,7 @@ export const InvestmentReturnView: React.FC<CalculatorViewProps> = ({ tool, onNa
         </div>
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Monthly Contribution ($)
+            Monthly Contribution (${currencySymbol})
           </label>
           <input
             type="number"
@@ -2081,6 +2228,7 @@ export const InvestmentReturnView: React.FC<CalculatorViewProps> = ({ tool, onNa
 
 // 14. SAVINGS
 export const SavingsView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => {
+  const { currency, currencySymbol } = useCurrency();
   const initialValues: SavingsInput = {
     initialDeposit: 4000,
     monthlyDeposit: 350,
@@ -2095,7 +2243,7 @@ export const SavingsView: React.FC<CalculatorViewProps> = ({ tool, onNavigate })
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Initial Deposit ($)
+            Initial Deposit (${currencySymbol})
           </label>
           <input
             type="number"
@@ -2109,7 +2257,7 @@ export const SavingsView: React.FC<CalculatorViewProps> = ({ tool, onNavigate })
         </div>
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            Monthly Savings ($)
+            Monthly Savings (${currencySymbol})
           </label>
           <input
             type="number"
@@ -2218,6 +2366,7 @@ export const SavingsView: React.FC<CalculatorViewProps> = ({ tool, onNavigate })
 
 // 15. MORTGAGE
 export const MortgageView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }) => {
+  const { currency, currencySymbol } = useCurrency();
   const initialValues: MortgageInput = {
     homePrice: 450000,
     downPayment: 20,
@@ -2234,7 +2383,7 @@ export const MortgageView: React.FC<CalculatorViewProps> = ({ tool, onNavigate }
     <div className="space-y-4">
       <div>
         <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-          Home Purchase Price ($)
+          Home Purchase Price (${currencySymbol})
         </label>
         <input
           type="number"
@@ -2511,6 +2660,273 @@ export const CalculatorDispatcher: React.FC<CalculatorViewProps> = ({ tool, onNa
     case 'mortgage-payment':
     case 'mortgage-calculator':
       return <MortgageView tool={tool} onNavigate={onNavigate} />;
+    case 'cagr':
+    case 'cagr-calculator':
+      return <CAGRView tool={tool} onNavigate={onNavigate} />;
+    case 'dividend':
+    case 'dividend-calculator':
+      return <DividendView tool={tool} onNavigate={onNavigate} />;
+    case 'inflation':
+    case 'inflation-calculator':
+      return <InflationView tool={tool} onNavigate={onNavigate} />;
+    case 'retirement':
+    case 'retirement-calculator':
+      return <RetirementView tool={tool} onNavigate={onNavigate} />;
+    case 'debt-payoff':
+    case 'debt-payoff-calculator':
+      return <DebtPayoffView tool={tool} onNavigate={onNavigate} />;
+    case 'amortization':
+    case 'amortization-calculator':
+      return <AmortizationView tool={tool} onNavigate={onNavigate} />;
+    case 'loan-interest':
+    case 'loan-interest-calculator':
+      return <LoanInterestView tool={tool} onNavigate={onNavigate} />;
+    case 'leverage':
+    case 'leverage-calculator':
+      return <LeverageView tool={tool} onNavigate={onNavigate} />;
+    case 'margin':
+    case 'margin-calculator':
+      return <MarginView tool={tool} onNavigate={onNavigate} />;
+    case 'liquidation-price':
+    case 'liquidation-price-calculator':
+      return <LiquidationPriceView tool={tool} onNavigate={onNavigate} />;
+    case 'futures-pnl':
+    case 'futures-pnl-calculator':
+      return <FuturesPnlView tool={tool} onNavigate={onNavigate} />;
+    case 'risk-reward':
+    case 'risk-reward-calculator':
+      return <RiskRewardView tool={tool} onNavigate={onNavigate} />;
+    case 'take-profit':
+    case 'take-profit-calculator':
+      return <TakeProfitView tool={tool} onNavigate={onNavigate} />;
+    case 'break-even-price':
+    case 'break-even-price-calculator':
+      return <BreakEvenPriceView tool={tool} onNavigate={onNavigate} />;
+    case 'apy-apr':
+    case 'apy-apr-calculator':
+      return <ApyAprView tool={tool} onNavigate={onNavigate} />;
+    case 'future-value':
+    case 'future-value-calculator':
+      return <FutureValueView tool={tool} onNavigate={onNavigate} />;
+    case 'present-value':
+    case 'present-value-calculator':
+      return <PresentValueView tool={tool} onNavigate={onNavigate} />;
+    case 'roi-calculator':
+    case 'roi':
+      return <RoiCalculatorView tool={tool} onNavigate={onNavigate} />;
+    case 'npv':
+    case 'npv-calculator':
+      return <NpvView tool={tool} onNavigate={onNavigate} />;
+    case 'irr':
+    case 'irr-calculator':
+      return <IrrView tool={tool} onNavigate={onNavigate} />;
+    case 'car-loan':
+    case 'car-loan-calculator':
+      return <CarLoanView tool={tool} onNavigate={onNavigate} />;
+    case 'personal-loan':
+    case 'personal-loan-calculator':
+      return <PersonalLoanView tool={tool} onNavigate={onNavigate} />;
+    case 'mortgage-affordability':
+    case 'mortgage-affordability-calculator':
+      return <MortgageAffordabilityView tool={tool} onNavigate={onNavigate} />;
+    case 'extra-payment':
+    case 'extra-payment-calculator':
+      return <ExtraPaymentView tool={tool} onNavigate={onNavigate} />;
+    case 'loan-comparison':
+    case 'loan-comparison-calculator':
+      return <LoanComparisonView tool={tool} onNavigate={onNavigate} />;
+    case 'position-size':
+    case 'position-size-calculator':
+      return <PositionSizeView tool={tool} onNavigate={onNavigate} />;
+    case 'stop-loss':
+    case 'stop-loss-calculator':
+      return <StopLossView tool={tool} onNavigate={onNavigate} />;
+    case 'pip-value':
+    case 'pip-value-calculator':
+      return <PipValueView tool={tool} onNavigate={onNavigate} />;
+    case 'trading-fee':
+    case 'trading-fee-calculator':
+      return <TradingFeeView tool={tool} onNavigate={onNavigate} />;
+    case 'margin-of-safety':
+    case 'margin-of-safety-calculator':
+      return <MarginOfSafetyView tool={tool} onNavigate={onNavigate} />;
+    case 'budget':
+    case 'budget-calculator':
+      return <BudgetView tool={tool} onNavigate={onNavigate} />;
+    case 'salary':
+    case 'salary-calculator':
+      return <SalaryView tool={tool} onNavigate={onNavigate} />;
+    case 'take-home-pay':
+    case 'take-home-pay-calculator':
+      return <TakeHomePayView tool={tool} onNavigate={onNavigate} />;
+    case 'savings-goal':
+    case 'savings-goal-calculator':
+      return <SavingsGoalView tool={tool} onNavigate={onNavigate} />;
+    case 'emergency-fund':
+    case 'emergency-fund-calculator':
+      return <EmergencyFundView tool={tool} onNavigate={onNavigate} />;
+    case 'asset-allocation':
+    case 'asset-allocation-calculator':
+      return <AssetAllocationView tool={tool} onNavigate={onNavigate} />;
+    case 'stock-average':
+    case 'stock-average-calculator':
+      return <StockAverageView tool={tool} onNavigate={onNavigate} />;
+    case 'dividend-reinvestment':
+    case 'dividend-reinvestment-calculator':
+      return <DividendReinvestmentView tool={tool} onNavigate={onNavigate} />;
+    case 'investment-fee':
+    case 'investment-fee-calculator':
+      return <InvestmentFeeView tool={tool} onNavigate={onNavigate} />;
+    case 'bond-yield':
+    case 'bond-yield-calculator':
+      return <BondYieldView tool={tool} onNavigate={onNavigate} />;
+    case 'crypto-average-price':
+    case 'crypto-average-price-calculator':
+      return <CryptoAveragePriceView tool={tool} onNavigate={onNavigate} />;
+    case 'crypto-market-cap':
+    case 'crypto-market-cap-calculator':
+      return <CryptoMarketCapView tool={tool} onNavigate={onNavigate} />;
+    case 'crypto-gas-fee':
+    case 'crypto-gas-fee-calculator':
+      return <CryptoGasFeeView tool={tool} onNavigate={onNavigate} />;
+    case 'crypto-conversion':
+    case 'crypto-conversion-calculator':
+      return <CryptoConversionView tool={tool} onNavigate={onNavigate} />;
+    case 'crypto-compound-growth':
+    case 'crypto-compound-interest-calc':
+      return <CryptoCompoundGrowthView tool={tool} onNavigate={onNavigate} />;
+    case 'savings-interest':
+    case 'savings-interest-calculator':
+      return <SavingsInterestView tool={tool} onNavigate={onNavigate} />;
+    case 'simple-interest':
+    case 'simple-interest-calculator':
+      return <SimpleInterestView tool={tool} onNavigate={onNavigate} />;
+    case 'compound-interest-calc':
+      return <Batch4CompoundInterestView tool={tool} onNavigate={onNavigate} />;
+    case 'rule-of-72':
+    case 'rule-of-72-calculator':
+      return <RuleOf72View tool={tool} onNavigate={onNavigate} />;
+    case 'discount':
+    case 'discount-calculator':
+      return <DiscountView tool={tool} onNavigate={onNavigate} />;
+    case 'percentage-change':
+    case 'percentage-change-calculator':
+      return <PercentageChangeView tool={tool} onNavigate={onNavigate} />;
+    case 'profit-margin':
+    case 'profit-margin-calculator':
+      return <ProfitMarginView tool={tool} onNavigate={onNavigate} />;
+    case 'markup':
+    case 'markup-calculator':
+      return <MarkupView tool={tool} onNavigate={onNavigate} />;
+    case 'business-break-even':
+    case 'business-break-even-calculator':
+      return <BusinessBreakEvenView tool={tool} onNavigate={onNavigate} />;
+    case 'cash-flow':
+    case 'cash-flow-calculator':
+      return <CashFlowView tool={tool} onNavigate={onNavigate} />;
+    case 'capital-gains':
+    case 'capital-gains-calculator':
+      return <CapitalGainsView tool={tool} onNavigate={onNavigate} />;
+    case 'stock-profit':
+    case 'stock-profit-calculator':
+      return <StockProfitView tool={tool} onNavigate={onNavigate} />;
+    case 'crypto-roi-calc':
+      return <Batch4CryptoROIView tool={tool} onNavigate={onNavigate} />;
+    case 'crypto-tax-calc':
+      return <Batch4CryptoTaxView tool={tool} onNavigate={onNavigate} />;
+    case 'crypto-dca-calc':
+      return <Batch4CryptoDCAView tool={tool} onNavigate={onNavigate} />;
+    case 'net-worth':
+    case 'net-worth-calculator':
+      return <NetWorthView tool={tool} onNavigate={onNavigate} />;
+    case 'debt-to-income':
+    case 'debt-to-income-calculator':
+      return <DebtToIncomeView tool={tool} onNavigate={onNavigate} />;
+    case 'savings-rate':
+    case 'savings-rate-calculator':
+      return <SavingsRateView tool={tool} onNavigate={onNavigate} />;
+    case 'financial-independence':
+    case 'financial-independence-calculator':
+      return <FinancialIndependenceView tool={tool} onNavigate={onNavigate} />;
+    case 'fire':
+    case 'fire-calculator':
+      return <FireCalculatorView tool={tool} onNavigate={onNavigate} />;
+    case 'retirement-withdrawal':
+    case 'retirement-withdrawal-calculator':
+      return <RetirementWithdrawalView tool={tool} onNavigate={onNavigate} />;
+    case 'safe-withdrawal-rate':
+    case 'safe-withdrawal-rate-calculator':
+      return <SafeWithdrawalRateView tool={tool} onNavigate={onNavigate} />;
+    case 'annuity':
+    case 'annuity-calculator':
+      return <AnnuityView tool={tool} onNavigate={onNavigate} />;
+    case 'bond-price':
+    case 'bond-price-calculator':
+      return <BondPriceView tool={tool} onNavigate={onNavigate} />;
+    case 'ytm':
+    case 'ytm-calculator':
+      return <YieldToMaturityView tool={tool} onNavigate={onNavigate} />;
+    case 'stock-valuation':
+    case 'stock-valuation-calculator':
+      return <StockValuationView tool={tool} onNavigate={onNavigate} />;
+    case 'pe-ratio':
+    case 'pe-ratio-calculator':
+      return <PeRatioView tool={tool} onNavigate={onNavigate} />;
+    case 'position-risk':
+    case 'position-risk-calculator':
+      return <PositionRiskView tool={tool} onNavigate={onNavigate} />;
+    case 'crypto-break-even-roi':
+    case 'crypto-break-even-roi-calculator':
+      return <CryptoBreakEvenRoiView tool={tool} onNavigate={onNavigate} />;
+    case 'crypto-dca-strategy':
+    case 'crypto-dca-strategy-calculator':
+      return <CryptoDcaStrategyView tool={tool} onNavigate={onNavigate} />;
+    // Batch 6 Calculators (15 Tools)
+    case 'crypto-impermanent-loss':
+    case 'crypto-impermanent-loss-calculator':
+      return <ImpermanentLossView tool={tool} onNavigate={onNavigate} />;
+    case 'crypto-apy-to-apr':
+    case 'crypto-apy-to-apr-calculator':
+      return <CryptoApyToAprView tool={tool} onNavigate={onNavigate} />;
+    case 'crypto-mining-profitability':
+    case 'crypto-mining-profitability-calculator':
+      return <CryptoMiningView tool={tool} onNavigate={onNavigate} />;
+    case 'balloon-loan':
+    case 'balloon-loan-calculator':
+      return <BalloonLoanView tool={tool} onNavigate={onNavigate} />;
+    case 'heloc-payment':
+    case 'heloc-payment-calculator':
+      return <HelocPaymentView tool={tool} onNavigate={onNavigate} />;
+    case 'biweekly-mortgage':
+    case 'biweekly-mortgage-calculator':
+      return <BiweeklyMortgageView tool={tool} onNavigate={onNavigate} />;
+    case 'capm':
+    case 'capm-calculator':
+      return <CapmView tool={tool} onNavigate={onNavigate} />;
+    case 'dividend-payout-ratio':
+    case 'dividend-payout-ratio-calculator':
+      return <DividendPayoutRatioView tool={tool} onNavigate={onNavigate} />;
+    case 'portfolio-rebalancing':
+    case 'portfolio-rebalancing-calculator':
+      return <PortfolioRebalancingView tool={tool} onNavigate={onNavigate} />;
+    case 'wacc':
+    case 'wacc-calculator':
+      return <WaccView tool={tool} onNavigate={onNavigate} />;
+    case 'cd-ladder':
+    case 'cd-ladder-calculator':
+      return <CdLadderView tool={tool} onNavigate={onNavigate} />;
+    case 'college-savings':
+    case 'college-savings-calculator':
+      return <CollegeSavingsView tool={tool} onNavigate={onNavigate} />;
+    case 'high-yield-savings':
+    case 'high-yield-savings-calculator':
+      return <HighYieldSavingsView tool={tool} onNavigate={onNavigate} />;
+    case 'working-capital':
+    case 'working-capital-calculator':
+      return <WorkingCapitalView tool={tool} onNavigate={onNavigate} />;
+    case 'sales-tax':
+    case 'sales-tax-calculator':
+      return <SalesTaxView tool={tool} onNavigate={onNavigate} />;
     default:
       return <CryptoProfitView tool={tool} onNavigate={onNavigate} />;
   }

@@ -5,7 +5,6 @@ import { CalculatorCard } from '../common/CalculatorCard';
 import { FAQAccordion } from '../common/FAQAccordion';
 import { Breadcrumbs } from '../common/Breadcrumbs';
 import { AdPlaceholder } from '../common/AdPlaceholder';
-import { AdsterraBanner } from '../common/AdsterraBanner';
 
 interface CategoryPageProps {
   category: 'crypto' | 'finance';
@@ -99,8 +98,8 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ category, onNavigate
         ))}
       </div>
 
-      {/* Adsterra Native Banner Placement */}
-      <AdsterraBanner />
+      {/* Ad Placement */}
+      <AdPlaceholder slotId="category-page-slot" />
 
       {/* Category FAQs */}
       <div className="mt-14 max-w-4xl mx-auto">

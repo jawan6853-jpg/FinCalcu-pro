@@ -4,7 +4,6 @@ import { TOOLS } from '../../lib/tools';
 import { CalculatorCard } from '../common/CalculatorCard';
 import { FAQAccordion } from '../common/FAQAccordion';
 import { AdPlaceholder } from '../common/AdPlaceholder';
-import { AdsterraBanner } from '../common/AdsterraBanner';
 import { SearchBar } from '../common/SearchBar';
 
 interface HomePageProps {
@@ -50,7 +49,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-100/80 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 text-xs font-semibold mb-6">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>15 Free Professional Calculators • Instant & Deterministic</span>
+            <span>{TOOLS.length} Free Professional Calculators • Instant & Deterministic</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight max-w-4xl mx-auto leading-tight sm:leading-tight">
@@ -71,7 +70,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           <div className="mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-medium text-slate-500 dark:text-slate-400">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-emerald-500" />
-              <span>100% Private & Client-Side</span>
+              <span>Client-Side In-Browser Math</span>
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-indigo-500" />
@@ -94,7 +93,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               Explore Calculators
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-              Select a category to filter or browse all 15 financial tools below
+              Select a category to filter or browse all {TOOLS.length} financial tools below
             </p>
           </div>
 
@@ -141,8 +140,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           ))}
         </div>
 
-        {/* Adsterra Native Banner Placement */}
-        <AdsterraBanner />
+        {/* Ad Placement */}
+        <AdPlaceholder slotId="homepage-mid-slot" />
 
         {/* Why FinCalc Pro Section */}
         <div className="mt-16 pt-12 border-t border-slate-200 dark:border-slate-800">
@@ -161,10 +160,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <h3 className="font-bold text-base text-slate-900 dark:text-slate-100 mb-2">
-                100% Client-Side Privacy
+                Client-Side In-Browser Math
               </h3>
               <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                Your financial numbers never leave your browser. Zero tracking of income, trade sizes, net worth, or private calculations.
+                Calculator calculations run locally in your web browser. No private asset balances, incomes, or trade parameters are recorded on our web servers.
               </p>
             </div>
 

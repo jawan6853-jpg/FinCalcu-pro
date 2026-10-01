@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, AlertTriangle, Scale, ShieldAlert, CheckCircle, ArrowRight } from 'lucide-react';
+import { FileText, AlertTriangle, Scale, ShieldAlert, CheckCircle, ArrowRight, Building2, Mail, Landmark } from 'lucide-react';
 import { Breadcrumbs } from '../common/Breadcrumbs';
 
 interface TermsPageProps {
@@ -21,18 +21,18 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
           Terms & Conditions
         </h1>
         <p className="mt-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-          Last Updated: September 20, 2026 • Version 2.4
+          Last Updated: October 1, 2026 • Published by FinCalc Pro Digital Services
         </p>
       </div>
 
-      {/* Important Disclaimer Notice */}
+      {/* Crucial Financial Disclaimer Notice */}
       <div className="mb-8 p-5 sm:p-6 rounded-2xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/50">
         <div className="flex items-start gap-3">
           <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
           <div className="text-xs sm:text-sm text-amber-950 dark:text-amber-200 space-y-1">
-            <h2 className="font-bold text-sm sm:text-base">Crucial Financial Disclaimer</h2>
+            <h2 className="font-bold text-sm sm:text-base">Crucial Financial & Legal Notice</h2>
             <p>
-              FinCalc Pro provides deterministic mathematical tools and educational estimates. We are <strong>not registered financial advisers, broker-dealers, CPAs, or tax attorneys</strong>. All outputs are mathematical estimations and do not guarantee actual investment outcomes, trading profits, or loan underwriting approvals.
+              FinCalc Pro provides deterministic mathematical calculators and educational models. We are <strong>not registered financial planners, investment advisors, broker-dealers, certified public accountants (CPAs), or tax attorneys</strong>. All outputs are mathematical estimations and do not guarantee future investment returns, cryptocurrency trading profitability, or loan underwriting approvals.
             </p>
           </div>
         </div>
@@ -41,96 +41,121 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
       {/* Main Terms Sections */}
       <div className="space-y-6 text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
         
-        {/* Section 1 */}
+        {/* Section 1: Operator Details */}
         <section className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
           <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
-            <FileText className="w-5 h-5 text-indigo-500" />
-            <span>1. Agreement to Terms</span>
+            <Building2 className="w-5 h-5 text-indigo-500" />
+            <span>1. Operating Entity & Scope of Agreement</span>
           </h2>
           <p>
-            By accessing or using the website at <strong>fincalc.pro</strong> (and any subdomains or related applications), you acknowledge that you have read, understood, and agreed to be legally bound by these Terms & Conditions, our Privacy Policy, and all applicable domestic and international financial regulations.
+            These Terms and Conditions constitute a legally binding agreement between you (whether personally or on behalf of an entity) and <strong>FinCalc Pro Digital Services</strong> ("Company", "we", "us", or "our"), concerning your access to and use of the FinCalc Pro website (<a href="https://fincalcu-pro-jawan-kappa.vercel.app/" className="text-indigo-600 dark:text-indigo-400 underline font-medium">https://fincalcu-pro-jawan-kappa.vercel.app/</a>) and all related progressive web applications (PWAs) and tools.
           </p>
-          <p className="mt-2">
-            If you do not agree with any portion of these terms, you are expressly prohibited from utilizing our tools, calculators, content, or services.
+          <div className="mt-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm space-y-1">
+            <p><span className="font-semibold text-slate-800 dark:text-slate-200">Legal Entity:</span> FinCalc Pro Digital Services</p>
+            <p><span className="font-semibold text-slate-800 dark:text-slate-200">Lead Administrator:</span> Jawan (jawan6853@gmail.com)</p>
+            <p><span className="font-semibold text-slate-800 dark:text-slate-200">Legal Desk Email:</span> <a href="mailto:jawan6853@gmail.com?subject=Legal%20Notice%20-%20FinCalc%20Pro" className="font-mono text-indigo-600 dark:text-indigo-400 hover:underline">jawan6853@gmail.com</a></p>
+          </div>
+          <p className="mt-3">
+            By accessing or using the platform, you acknowledge that you have read, understood, and agreed to be bound by all of these Terms and Conditions. If you do not agree with all of these Terms, you are expressly prohibited from using the platform and must discontinue use immediately.
           </p>
         </section>
 
-        {/* Section 2 */}
+        {/* Section 2: Intellectual Property */}
         <section className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3">
-            2. Permitted Use & Intellectual Property
+          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
+            <FileText className="w-5 h-5 text-indigo-500" />
+            <span>2. Intellectual Property Rights & Permitted Use</span>
           </h2>
           <p>
-            FinCalc Pro grants you a revocable, non-exclusive, non-transferable, limited license to access and use our financial calculators, articles, and interactive visualizers strictly for personal, educational, and non-commercial informational research.
+            Unless otherwise indicated, the platform and its proprietary software, calculation algorithms, formulas, graphic designs, user interfaces, educational articles, and branding (the "Content") are owned by FinCalc Pro Digital Services and are protected by copyright, trademark, and unfair competition laws.
           </p>
           <div className="mt-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm">
             <p className="font-semibold text-slate-800 dark:text-slate-200 mb-1.5">You agree that you will not:</p>
             <ul className="list-disc pl-5 space-y-1 text-slate-600 dark:text-slate-400">
-              <li>Scrape, reverse-engineer, decompile, or extract calculator algorithms or site architecture using automated spiders, bots, or crawlers.</li>
-              <li>Frame, mirror, or repackage our calculation engines into a commercial software application without prior written licensing agreements.</li>
-              <li>Introduce malicious payloads, viruses, DDoS attacks, or automated high-frequency load that interferes with server infrastructure.</li>
+              <li>Systematically scrape, mirror, or extract calculation engines or content using automated web crawlers or bots without written consent.</li>
+              <li>Decompile, disassemble, or reverse-engineer the underlying application bundle.</li>
+              <li>Re-package or sell our calculation tools as part of any commercial software product or subscription service.</li>
+              <li>Attempt to bypass security measures, trigger distributed denial of service (DDoS) requests, or disrupt normal site performance.</li>
             </ul>
           </div>
         </section>
 
-        {/* Section 3 */}
+        {/* Section 3: Calculation Disclaimer */}
         <section className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
           <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3">
-            3. Calculation Accuracy & No Warranties
+            3. Calculation Accuracy & "As-Is" Mathematical Modeling
           </h2>
           <p>
-            While our development team rigorously tests every mathematical formula against banking and institutional standards (including standard loan compounding, compound interest, SIP growth, and crypto trading fees):
+            All 85 financial and crypto calculation engines available on the platform are provided strictly on an <strong>"as-is" and "as-available" basis</strong> for exploratory and educational research:
           </p>
           <ul className="list-disc pl-5 mt-2 space-y-1.5 text-sm">
-            <li><strong>User-Supplied Variables:</strong> The accuracy of calculation outputs is strictly dependent on the accuracy of the parameters you enter.</li>
-            <li><strong>Market Volatility:</strong> Cryptocurrency prices, decentralized finance (DeFi) staking yields, gas fees, and exchange commissions fluctuate dynamically.</li>
-            <li><strong>"As-Is" Service:</strong> All services, calculations, and materials are provided strictly on an <em>"as is"</em> and <em>"as available"</em> basis without warranties of any kind, whether express or implied.</li>
+            <li><strong>Input Dependence:</strong> Results are entirely contingent on the accuracy and completeness of the numbers you provide.</li>
+            <li><strong>Market & Policy Variations:</strong> Real-world financial figures vary based on individual credit scores, lending bank criteria, broker commissions, gas fees, exchange liquidity, and changing national tax legislation.</li>
+            <li><strong>No Fiduciary Relationship:</strong> Using FinCalc Pro does not establish a financial advisor-client, attorney-client, or fiduciary relationship of any nature.</li>
           </ul>
         </section>
 
-        {/* Section 4 */}
+        {/* Section 4: Limitation of Liability */}
         <section className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
           <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
             <ShieldAlert className="w-5 h-5 text-indigo-500" />
             <span>4. Limitation of Liability</span>
           </h2>
           <p>
-            To the maximum extent permitted under applicable law, in no event shall FinCalc Pro, its operators, developers, affiliates, or licensors be liable for any direct, indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of capital, trading losses, liquidation of cryptocurrency assets, bad debt decisions, or business interruption arising out of the use or inability to use our tools.
+            To the maximum extent permissible by applicable law, in no event shall FinCalc Pro Digital Services, its operators, developers, or affiliates be liable to you or any third party for any direct, indirect, consequential, exemplary, incidental, special, or punitive damages, including lost capital, lost profits, trading drawdowns, cryptocurrency liquidation losses, or bad debt choices arising from your use of the site or reliance on any calculations.
           </p>
         </section>
 
-        {/* Section 5 */}
+        {/* Section 5: Advertising Partners */}
         <section className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
           <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3">
-            5. Third-Party Links & Advertising
+            5. Third-Party Advertisements & External Links
           </h2>
           <p>
-            Our website displays third-party advertisements (such as Google AdSense and Adsterra) and may contain links to external third-party websites (such as cryptocurrency exchanges, hardware wallet vendors, or official regulatory portals). FinCalc Pro does not endorse, control, or assume responsibility for the content, privacy practices, or product terms of any third-party services.
+            Our website may present third-party contextual advertisements served through Google AdSense and may include informational links to external resources (such as financial institutions, regulatory bodies, or cryptocurrency resources). FinCalc Pro does not control, endorse, or guarantee the offerings, accuracy, or privacy practices of external third-party sites.
           </p>
         </section>
 
-        {/* Section 6 */}
+        {/* Section 6: Dispute Resolution & Governing Law */}
         <section className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3">
-            6. Changes to Terms & Contact Information
+          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
+            <Landmark className="w-5 h-5 text-indigo-500" />
+            <span>6. Governing Law & Dispute Resolution</span>
           </h2>
           <p>
-            We reserve the right to revise or update these Terms & Conditions at any time without prior notice. The updated date at the top of this document indicates when changes take effect. Continued use of the platform after any modification constitutes acceptance of the new terms.
+            These Terms & Conditions and your use of the website shall be governed by and construed in accordance with generally recognized international principles of electronic commerce, consumer protection, and standard dispute resolution procedures.
+          </p>
+          <p className="mt-2">
+            In the event of any controversy, claim, or dispute arising out of your use of FinCalc Pro, the parties agree to first attempt informal amicable negotiation by submitting a written notice of dispute to our designated legal desk at <a href="mailto:jawan6853@gmail.com" className="font-mono text-indigo-600 dark:text-indigo-400 hover:underline">jawan6853@gmail.com</a>.
+          </p>
+        </section>
+
+        {/* Section 7: Changes & Contact */}
+        <section className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
+            <Mail className="w-5 h-5 text-indigo-500" />
+            <span>7. Contacting the Legal Desk</span>
+          </h2>
+          <p>
+            If you have questions, feedback, or legal inquiries regarding these Terms and Conditions, please contact our administrator:
           </p>
           <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
             <div>
               <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                Legal & Governance Inquiries
+                FinCalc Pro Legal & Compliance Desk
+              </p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Operator: FinCalc Pro Digital Services (Attn: Jawan)
               </p>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Email: <span className="font-mono text-indigo-600 dark:text-indigo-400">legal@fincalc.pro</span>
+                Email: <a href="mailto:jawan6853@gmail.com?subject=Terms%20Inquiry%20-%20FinCalc%20Pro" className="font-mono text-indigo-600 dark:text-indigo-400 hover:underline font-semibold">jawan6853@gmail.com</a>
               </p>
             </div>
             <button
               onClick={() => onNavigate('/contact')}
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl transition-colors cursor-pointer self-start sm:self-auto"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl transition-colors cursor-pointer self-start sm:self-auto shrink-0"
             >
-              <span>Contact Legal Desk</span>
+              <span>Contact Desk</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>

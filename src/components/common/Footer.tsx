@@ -221,7 +221,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         {/* Bottom Bar with Direct Links */}
         <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
           <p className="text-slate-500 dark:text-slate-400">
-            © {new Date().getFullYear()} FinCalc Pro. All rights reserved.
+            © {new Date().getFullYear()} FinCalc Pro. Operated by FinCalc Pro Digital Services • Desk: <a href="mailto:jawan6853@gmail.com" className="font-mono text-indigo-600 dark:text-indigo-400 hover:underline">jawan6853@gmail.com</a>
           </p>
 
           <nav aria-label="Footer Legal Navigation" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-slate-600 dark:text-slate-300 font-medium">

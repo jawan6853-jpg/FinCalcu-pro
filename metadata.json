@@ -1,6 +1,6 @@
 {
   "name": "Finance & Crypto Calculators",
-  "description": "Free and instant Crypto Profit Calculator. Calculate your potential buying, selling profits, ROI, and trading losses for Bitcoin, Ethereum, and altcoins securely.",
+  "description": "Institutional-grade financial calculator suite with 100 tools for crypto profit, ROI, DCA strategies, loan EMIs, mortgages, and investment compound growth.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

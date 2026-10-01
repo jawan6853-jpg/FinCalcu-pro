@@ -1,0 +1,921 @@
+import { ToolItem } from '../types';
+
+export const BATCH_5_TOOLS: ToolItem[] = [
+  // 1. NET WORTH CALCULATOR
+  {
+    id: 'net-worth-calculator',
+    name: 'Net Worth Calculator',
+    slug: 'net-worth-calculator',
+    route: '/calculators/net-worth-calculator',
+    category: 'savings',
+    categoryLabel: 'Personal Finance & Wealth',
+    shortDescription: 'Calculate your total personal net worth, asset distribution, and debt-to-asset ratio.',
+    description: 'Calculate your comprehensive personal net worth by tallying cash, investments, real estate, crypto, and retirement accounts against mortgages, auto loans, and revolving debts.',
+    icon: 'Scale',
+    keywords: [
+      'net worth calculator',
+      'personal net worth calculator',
+      'net worth tracker',
+      'calculate net worth',
+      'assets minus liabilities calculator',
+      'wealth tracker calculator',
+    ],
+    featured: true,
+    relatedTools: ['budget-calculator', 'savings-rate-calculator', 'debt-to-income-calculator', 'emergency-fund-calculator'],
+    formulaSummary: 'Net Worth = Total Assets - Total Liabilities',
+    formulaDetails: [
+      'Total Assets = Cash + Brokerage Investments + Real Estate + Crypto + Retirement + Other Valuables',
+      'Total Liabilities = Mortgages + Auto Loans + Student Loans + Credit Card Balances + Personal Debt',
+      'Debt-to-Asset Ratio (%) = (Total Liabilities / Total Assets) × 100',
+      'Liquid Assets = Cash & Bank Balances + Taxable Investments + Liquid Crypto',
+    ],
+    exampleCalculation: {
+      title: 'Example: Household with $650k Assets and $280k Liabilities',
+      description: 'Evaluating household financial strength and balance sheet solvency.',
+      inputs: {
+        'Cash & Bank Accounts': '$45,000.00',
+        'Investments & Retirement': '$280,000.00',
+        'Real Estate Equity Value': '$325,000.00',
+        'Mortgage Balance': '$260,000.00',
+        'Auto & Consumer Debt': '$20,000.00',
+      },
+      outputs: {
+        'Total Assets': '$650,000.00',
+        'Total Liabilities': '$280,000.00',
+        'Net Worth': '$370,000.00',
+        'Debt-to-Asset Ratio': '43.08%',
+      },
+    },
+    faqs: [
+      {
+        question: 'How often should I calculate and update my net worth?',
+        answer: 'Financial planners recommend updating your net worth quarterly or semi-annually. Tracking it too frequently (daily or weekly) causes unnecessary stress over short-term market volatility.',
+      },
+      {
+        question: 'Should I include my primary residence and automobile in my net worth?',
+        answer: 'Yes, your home and vehicles are physical assets. However, use conservative realistic market values, and always subtract the outstanding mortgage and auto loan balances.',
+      },
+      {
+        question: 'What is considered a good debt-to-asset ratio?',
+        answer: 'A debt-to-asset ratio below 50% is generally considered healthy. Ratios below 30% reflect high financial independence and minimal solvency risk.',
+      },
+    ],
+  },
+
+  // 2. DEBT-TO-INCOME RATIO CALCULATOR
+  {
+    id: 'debt-to-income-calculator',
+    name: 'Debt-to-Income Ratio Calculator',
+    slug: 'debt-to-income-calculator',
+    route: '/calculators/debt-to-income-calculator',
+    category: 'loans',
+    categoryLabel: 'Loans & Credit',
+    shortDescription: 'Calculate your Front-End and Back-End Debt-to-Income (DTI) ratio for mortgage and loan qualification.',
+    description: 'Determine your monthly Debt-to-Income (DTI) percentage. Compare your debt burden against prime lending benchmarks (36% and 43% conventional loan limits).',
+    icon: 'Percent',
+    keywords: [
+      'debt to income ratio calculator',
+      'DTI calculator',
+      'debt income calculator',
+      'DTI ratio calculator',
+      'mortgage DTI calculator',
+      'front end back end dti',
+    ],
+    featured: true,
+    relatedTools: ['mortgage-affordability-calculator', 'mortgage-calculator', 'debt-payoff-calculator', 'loan-comparison-calculator'],
+    formulaSummary: 'DTI (%) = (Total Monthly Debt Payments / Gross Monthly Income) × 100',
+    formulaDetails: [
+      'Back-End DTI = (Total Monthly Debt Payments / Gross Monthly Income) × 100',
+      'Front-End DTI = (Housing Expenses / Gross Monthly Income) × 100',
+      'Max Payment for 36% Benchmark = Gross Monthly Income × 0.36',
+      'Max Payment for 43% Qualified Mortgage Limit = Gross Monthly Income × 0.43',
+    ],
+    exampleCalculation: {
+      title: 'Example: $8,500 Gross Monthly Income with $2,800 Total Monthly Debt',
+      description: 'Assessing mortgage readiness and lending risk rating.',
+      inputs: {
+        'Gross Monthly Income': '$8,500.00',
+        'Mortgage / Rent Payment': '$1,900.00',
+        'Auto Loan': '$450.00',
+        'Student Loans': '$300.00',
+        'Credit Card Minimums': '$150.00',
+      },
+      outputs: {
+        'Total Monthly Debt': '$2,800.00',
+        'Back-End DTI Ratio': '32.94%',
+        'Front-End Housing Ratio': '22.35%',
+        'Lending Tier': 'Healthy (< 36%)',
+      },
+    },
+    faqs: [
+      {
+        question: 'What is the maximum DTI ratio for a conventional mortgage?',
+        answer: 'Most conventional mortgage lenders prefer a back-end DTI of 36% or less, though approvals up to 43% (and occasionally 45-50% with strong credit or cash reserves) are possible under automated underwriting.',
+      },
+      {
+        question: 'Is DTI calculated using gross or net take-home pay?',
+        answer: 'DTI is always calculated using gross pre-tax income. This standardizes the metric across borrowers with different tax withholdings, state tax rates, and retirement contributions.',
+      },
+      {
+        question: 'Do living expenses like groceries and utility bills count toward DTI?',
+        answer: 'No. DTI exclusively counts contractual debt obligations reported to credit bureaus: mortgages, rent, auto loans, student loans, personal loans, and minimum credit card payments.',
+      },
+    ],
+  },
+
+  // 3. SAVINGS RATE CALCULATOR
+  {
+    id: 'savings-rate-calculator',
+    name: 'Savings Rate Calculator',
+    slug: 'savings-rate-calculator',
+    route: '/calculators/savings-rate-calculator',
+    category: 'savings',
+    categoryLabel: 'Savings & Goals',
+    shortDescription: 'Calculate your personal savings rate percentage and estimated years to financial independence.',
+    description: 'Calculate what percentage of your take-home income you save each month. Model your path toward financial freedom using the 50/30/20 budget framework.',
+    icon: 'PiggyBank',
+    keywords: [
+      'savings rate calculator',
+      'personal savings rate calculator',
+      'savings percentage calculator',
+      'calculate savings rate',
+      '50 30 20 savings rate',
+      'savings rate for early retirement',
+    ],
+    featured: true,
+    relatedTools: ['financial-independence-calculator', 'fire-calculator', 'budget-calculator', 'savings-goal-calculator'],
+    formulaSummary: 'Savings Rate (%) = (Monthly Savings / Monthly Income) × 100',
+    formulaDetails: [
+      'Savings Rate (%) = (Total Saved / Total Take-Home Income) × 100',
+      'Annual Savings = Monthly Savings × 12',
+      'Annual Spending = (Monthly Income - Monthly Savings) × 12',
+      'Years to FI ≈ ln(1 + (25 × Annual Spending × r) / Annual Savings) / ln(1 + r)',
+    ],
+    exampleCalculation: {
+      title: 'Example: $6,000 Monthly Income Saving $1,800/Month',
+      description: 'Determining savings percentage and 50/30/20 compliance.',
+      inputs: {
+        'Monthly Take-Home Pay': '$6,000.00',
+        'Monthly Savings & Investments': '$1,800.00',
+        'Essential Needs Spending': '$2,700.00',
+        'Discretionary Wants': '$1,500.00',
+      },
+      outputs: {
+        'Personal Savings Rate': '30.00%',
+        'Annual Savings': '$21,600.00',
+        'Annual Living Expenses': '$50,400.00',
+        'Projected Years to FI': '27.4 Years',
+      },
+    },
+    faqs: [
+      {
+        question: 'What is an ideal personal savings rate?',
+        answer: 'Conventional wisdom suggests a 15% to 20% savings rate for standard retirement at age 65. Aspiring FIRE (Financial Independence, Retire Early) pursuers typically target 40% to 70%.',
+      },
+      {
+        question: 'Should employer 401(k) matches be included in savings rate?',
+        answer: 'If you include employer matching contributions in your savings numerator, you must also add that same match to your gross income denominator to maintain accurate mathematical proportions.',
+      },
+      {
+        question: 'How does doubling my savings rate impact years to retirement?',
+        answer: 'Increasing your savings rate from 10% to 50% cuts your working career by approximately 30 years, because you both accumulate assets faster and learn to live comfortably on less.',
+      },
+    ],
+  },
+
+  // 4. FINANCIAL INDEPENDENCE CALCULATOR
+  {
+    id: 'financial-independence-calculator',
+    name: 'Financial Independence Calculator',
+    slug: 'financial-independence-calculator',
+    route: '/calculators/financial-independence-calculator',
+    category: 'investment',
+    categoryLabel: 'Investment & Growth',
+    shortDescription: 'Calculate your Financial Independence (FI) number, remaining capital gap, and years to achieve work optionality.',
+    description: 'Model your journey to Financial Independence based on annual expenses, expected withdrawal rate, compounding returns, and ongoing contributions. All results are clearly labeled educational estimates.',
+    icon: 'TrendingUp',
+    keywords: [
+      'financial independence calculator',
+      'FI calculator',
+      'financial independence number calculator',
+      'financial freedom calculator',
+      'fi number formula',
+      'work optional calculator',
+    ],
+    featured: true,
+    relatedTools: ['fire-calculator', 'safe-withdrawal-rate-calculator', 'retirement-calculator', 'compound-interest-calc'],
+    formulaSummary: 'FI Target ($) = Annual Living Expenses / (Withdrawal Rate / 100)',
+    formulaDetails: [
+      'Target Portfolio (FI Number) = Annual Expenses × 25 (at 4% withdrawal rate)',
+      'Remaining Capital Needed = Max(0, FI Number - Current Portfolio)',
+      'Current FI Progress (%) = (Current Investments / FI Number) × 100',
+      'Annual Passive Income = FI Number × (Withdrawal Rate / 100)',
+    ],
+    exampleCalculation: {
+      title: 'Example: $60,000 Annual Expenses with 4.0% Safe Withdrawal Rate',
+      description: 'Projecting timeline from a $150,000 starting base with $2,000/mo additions.',
+      inputs: {
+        'Annual Living Expenses': '$60,000.00',
+        'Withdrawal Rate': '4.0%',
+        'Current Investments': '$150,000.00',
+        'Annual Additions': '$24,000.00',
+        'Expected Real Return': '7.0%',
+      },
+      outputs: {
+        'FI Target Number': '$1,500,000.00',
+        'Remaining Capital Needed': '$1,350,000.00',
+        'Current Progress': '10.00%',
+        'Estimated Time to FI': '19 Years',
+      },
+    },
+    faqs: [
+      {
+        question: 'What is the difference between Financial Independence and Retirement?',
+        answer: 'Financial Independence means work is strictly optional—your investment returns cover 100% of your living expenses. You can continue working on projects you love, switch careers, or retire fully.',
+      },
+      {
+        question: 'Why is the 4% rule frequently used to calculate the FI number?',
+        answer: 'The 4% rule (derived from the Trinity Study) demonstrated that a portfolio of 50-75% equities historically lasted at least 30 years across almost all historical economic cycles in modern history.',
+      },
+      {
+        question: 'Should I use nominal or real (inflation-adjusted) return in FI calculations?',
+        answer: 'Using real return (e.g. 6-7% instead of 10% nominal) is best because it keeps all future calculations in today purchasing power dollars, eliminating the need to adjust future expense targets.',
+      },
+    ],
+  },
+
+  // 5. FIRE CALCULATOR
+  {
+    id: 'fire-calculator',
+    name: 'FIRE Calculator',
+    slug: 'fire-calculator',
+    route: '/calculators/fire-calculator',
+    category: 'investment',
+    categoryLabel: 'Investment & Growth',
+    shortDescription: 'Estimate your FIRE Number, target retirement age, Lean FIRE, and Fat FIRE milestones.',
+    description: 'Calculate your Financial Independence, Retire Early (FIRE) metrics. Model Lean FIRE, Fat FIRE, and Coast FIRE targets with customizable withdrawal rates and compound returns. Clearly explains assumptions vs. guarantees.',
+    icon: 'Flame',
+    keywords: [
+      'FIRE calculator',
+      'financial independence retire early calculator',
+      'FIRE number calculator',
+      'FIRE retirement calculator',
+      'lean fire calculator',
+      'fat fire calculator',
+      'coast fire calculator',
+    ],
+    featured: true,
+    relatedTools: ['financial-independence-calculator', 'safe-withdrawal-rate-calculator', 'retirement-withdrawal-calculator', 'cagr-calculator'],
+    formulaSummary: 'FIRE Number = Annual Expenses / Withdrawal Rate',
+    formulaDetails: [
+      'Lean FIRE Target = (Annual Expenses × 0.75) / Withdrawal Rate',
+      'Regular FIRE Target = Annual Expenses / Withdrawal Rate',
+      'Fat FIRE Target = (Annual Expenses × 1.40) / Withdrawal Rate',
+      'Coast FIRE = FIRE Target / (1 + r)^(Retirement Age - Current Age)',
+    ],
+    exampleCalculation: {
+      title: 'Example: 32-Year-Old with $50,000 Expenses and $80,000 Saved',
+      description: 'Modeling FIRE date with $20,000 annual contributions at 7% real return.',
+      inputs: {
+        'Current Age': '32 Years',
+        'Current Savings': '$80,000.00',
+        'Annual Expenses': '$50,000.00',
+        'Annual Savings': '$20,000.00',
+        'Expected Return': '7.0%',
+        'Withdrawal Rate': '4.0%',
+      },
+      outputs: {
+        'FIRE Number': '$1,250,000.00',
+        'Years to FIRE': '19 Years',
+        'Projected FIRE Age': '51 Years',
+        'Lean FIRE Target': '$937,500.00',
+        'Coast FIRE Target': '$133,024.00',
+      },
+    },
+    faqs: [
+      {
+        question: 'What are the main types of FIRE?',
+        answer: 'The primary variations are Lean FIRE (frugal lifestyle, <$40k/yr), Regular FIRE (maintaining current standard of living), Fat FIRE (abundant budget, $100k+/yr), and Coast FIRE (saving early so compounding covers retirement without further deposits).',
+      },
+      {
+        question: 'How do health insurance and taxes affect FIRE plans?',
+        answer: 'Early retirees before Medicare age (65 in the US) must account for unsubsidized or ACA healthcare premiums and manage taxable capital gains vs tax-deferred IRA/401(k) conversion ladders.',
+      },
+      {
+        question: 'Are FIRE calculations financial guarantees?',
+        answer: 'No. FIRE models are hypothetical projections that assume steady annual rates of return. Real financial markets experience multi-year drawdowns, inflation volatility, and unexpected life events.',
+      },
+    ],
+  },
+
+  // 6. RETIREMENT WITHDRAWAL CALCULATOR
+  {
+    id: 'retirement-withdrawal-calculator',
+    name: 'Retirement Withdrawal Calculator',
+    slug: 'retirement-withdrawal-calculator',
+    route: '/calculators/retirement-withdrawal-calculator',
+    category: 'investment',
+    categoryLabel: 'Investment & Growth',
+    shortDescription: 'Calculate annual and monthly retirement portfolio withdrawals, longevity timeline, and ending balances.',
+    description: 'Simulate retirement drawdowns over 10 to 50 years. Model portfolio survival across varying annual withdrawal rates, investment returns, and inflation adjustments.',
+    icon: 'Wallet',
+    keywords: [
+      'retirement withdrawal calculator',
+      'retirement income calculator',
+      'retirement withdrawal rate calculator',
+      'retirement portfolio calculator',
+      'nest egg drawdown calculator',
+      'portfolio longevity calculator',
+    ],
+    featured: true,
+    relatedTools: ['safe-withdrawal-rate-calculator', 'retirement-calculator', 'annuity-calculator', 'financial-independence-calculator'],
+    formulaSummary: 'Annual Withdrawal = Portfolio × Withdrawal Rate (with annual inflation adjustment)',
+    formulaDetails: [
+      'Initial Monthly Withdrawal = Initial Annual Withdrawal / 12',
+      'Year n Balance = (Year n-1 Balance - Withdrawal) × (1 + Return Rate)',
+      'Inflation Adjusted Withdrawal = Prior Withdrawal × (1 + Inflation Rate)',
+      'Total Withdrawn = Cumulative sum of all annual distributions',
+    ],
+    exampleCalculation: {
+      title: 'Example: $1,200,000 Portfolio at 4.0% Drawdown over 30 Years',
+      description: 'Evaluating portfolio longevity with 6.0% return and 2.5% inflation.',
+      inputs: {
+        'Starting Portfolio': '$1,200,000.00',
+        'Withdrawal Rate': '4.0%',
+        'Investment Return': '6.0%',
+        'Retirement Duration': '30 Years',
+        'Inflation Rate': '2.5%',
+      },
+      outputs: {
+        'Initial Annual Income': '$48,000.00',
+        'Initial Monthly Income': '$4,000.00',
+        'Total Lifetime Withdrawals': '$2,107,314.00',
+        'Ending Portfolio Balance': '$1,529,842.00',
+        'Portfolio Longevity': 'Sustains full 30 years',
+      },
+    },
+    faqs: [
+      {
+        question: 'What happens if a market crash occurs in my first retirement years?',
+        answer: 'This is known as Sequence of Returns Risk. Taking fixed dollar withdrawals during a market crash depletes shares faster, permanently impairing long-term recovery. Many retirees use cash buffers or flexible spending rules to mitigate this.',
+      },
+      {
+        question: 'Should I withdraw a fixed percentage or inflation-adjusted dollar amount?',
+        answer: 'The traditional Bengen 4% rule takes 4% in Year 1 and increases that dollar amount by inflation each subsequent year. Dynamic percentage rules adjust up or down with market performance.',
+      },
+      {
+        question: 'What asset allocation best supports 30+ year withdrawals?',
+        answer: 'Historical studies demonstrate that an allocation of 50% to 75% broad-market equities combined with 25% to 50% intermediate bonds yields the highest historical 30-year survival rates.',
+      },
+    ],
+  },
+
+  // 7. SAFE WITHDRAWAL RATE CALCULATOR
+  {
+    id: 'safe-withdrawal-rate-calculator',
+    name: 'Safe Withdrawal Rate Calculator',
+    slug: 'safe-withdrawal-rate-calculator',
+    route: '/calculators/safe-withdrawal-rate-calculator',
+    category: 'investment',
+    categoryLabel: 'Investment & Growth',
+    shortDescription: 'Calculate safe annual, monthly, and weekly withdrawal amounts across Trinity Study benchmarks.',
+    description: 'Estimate sustainable portfolio drawdown rates. Compare 3.0%, 3.5%, 4.0%, 4.5%, and 5.0% withdrawal tiers. Clearly explains that safe is a historical estimate, not a guarantee.',
+    icon: 'ShieldCheck',
+    keywords: [
+      'safe withdrawal rate calculator',
+      'SWR calculator',
+      'retirement withdrawal calculator',
+      '4 percent rule calculator',
+      'trinity study calculator',
+      'bengen safe withdrawal rate',
+    ],
+    featured: true,
+    relatedTools: ['retirement-withdrawal-calculator', 'fire-calculator', 'financial-independence-calculator', 'cagr-calculator'],
+    formulaSummary: 'Annual Safe Withdrawal = Portfolio Value × (SWR % / 100)',
+    formulaDetails: [
+      'Monthly Safe Income = Annual Safe Withdrawal / 12',
+      'Weekly Safe Income = Annual Safe Withdrawal / 52',
+      'Daily Safe Income = Annual Safe Withdrawal / 365',
+      'Trinity Benchmark: 4.0% initial rate historically survived 95% of 30-year US retirement cohorts',
+    ],
+    exampleCalculation: {
+      title: 'Example: $1,500,000 Portfolio across SWR Tiers',
+      description: 'Comparing conservative vs standard withdrawal amounts.',
+      inputs: {
+        'Portfolio Value': '$1,500,000.00',
+        'Selected SWR': '3.5%',
+      },
+      outputs: {
+        'Annual Withdrawal': '$52,500.00',
+        'Monthly Withdrawal': '$4,375.00',
+        'Weekly Withdrawal': '$1,009.62',
+        'Standard 4% Comparison': '$60,000.00 / yr',
+      },
+    },
+    faqs: [
+      {
+        question: 'Is the 4% rule still safe in modern economic conditions?',
+        answer: 'Many financial researchers advocate for 3.25% to 3.5% for early retirees with 40-50 year horizons or when stock valuations (CAPE ratio) are elevated, whereas 4.0% remains robust for traditional 30-year retirements.',
+      },
+      {
+        question: 'Does the Safe Withdrawal Rate account for taxes?',
+        answer: 'Withdrawals are gross amounts. If your funds reside in traditional pre-tax 401(k) or IRA accounts, distributions will be subject to state and federal income taxes.',
+      },
+      {
+        question: 'What is a variable withdrawal strategy?',
+        answer: 'A variable or dynamic withdrawal strategy (like Guyton-Klinkers guardrails) reduces withdrawals by 10% during market recessions and raises them during bull markets, significantly improving portfolio longevity.',
+      },
+    ],
+  },
+
+  // 8. ANNUITY CALCULATOR
+  {
+    id: 'annuity-calculator',
+    name: 'Annuity Calculator',
+    slug: 'annuity-calculator',
+    route: '/calculators/annuity-calculator',
+    category: 'savings',
+    categoryLabel: 'Savings & Goals',
+    shortDescription: 'Calculate Future Value, Present Value, or required periodic payment for Ordinary Annuities and Annuities Due.',
+    description: 'Calculate the future value, present value, or required payment for ordinary annuities and annuities due. Supports monthly, quarterly, semi-annual, and annual payment schedules with exact compound formulas.',
+    icon: 'Receipt',
+    keywords: [
+      'annuity calculator',
+      'annuity payment calculator',
+      'annuity future value calculator',
+      'annuity present value calculator',
+      'ordinary annuity formula',
+      'annuity due calculator',
+    ],
+    featured: true,
+    relatedTools: ['compound-interest-calc', 'present-value-calculator', 'future-value-calculator', 'bond-price-calculator'],
+    formulaSummary: 'FV = PMT × [((1 + r)^n - 1) / r] × (Annuity Due Factor)',
+    formulaDetails: [
+      'Ordinary Annuity FV = PMT × [((1 + r/m)^(m×t) - 1) / (r/m)]',
+      'Annuity Due FV = Ordinary FV × (1 + r/m)',
+      'Ordinary Annuity PV = PMT × [(1 - (1 + r/m)^(-m×t)) / (r/m)]',
+      'Total Interest = Future Value - Total Contributions Made',
+    ],
+    exampleCalculation: {
+      title: 'Example: $500 Monthly Ordinary Annuity at 6.0% for 15 Years',
+      description: 'Calculating accumulated value and interest compounded monthly.',
+      inputs: {
+        'Monthly Payment (PMT)': '$500.00',
+        'Annual Interest Rate': '6.0%',
+        'Time Horizon': '15 Years',
+        'Payment Timing': 'End of Period (Ordinary)',
+      },
+      outputs: {
+        'Future Value (FV)': '$145,409.36',
+        'Present Value (PV)': '$59,235.34',
+        'Total Cash Paid': '$90,000.00',
+        'Interest Earned': '$55,409.36',
+      },
+    },
+    faqs: [
+      {
+        question: 'What is the key difference between an Ordinary Annuity and an Annuity Due?',
+        answer: 'Payments in an ordinary annuity are made at the end of each period (like mortgage payments or bond coupons). In an annuity due, payments occur at the beginning of each period (like rent or lease payments), earning one extra compounding cycle.',
+      },
+      {
+        question: 'When is calculating the Present Value of an annuity useful?',
+        answer: 'PV calculation helps you evaluate whether taking a lump-sum cash payout today is better than receiving guaranteed periodic payments (e.g. lottery settlements, pension buyouts, or insurance contracts).',
+      },
+      {
+        question: 'How do management fees impact commercial fixed or variable annuities?',
+        answer: 'Commercial insurance annuities often charge mortality and expense (M&E) fees (1-2% annually) and surrender charges. Always evaluate the net yield after all administrative fees are deducted.',
+      },
+    ],
+  },
+
+  // 9. BOND PRICE CALCULATOR
+  {
+    id: 'bond-price-calculator',
+    name: 'Bond Price Calculator',
+    slug: 'bond-price-calculator',
+    route: '/calculators/bond-price-calculator',
+    category: 'investment',
+    categoryLabel: 'Investment & Growth',
+    shortDescription: 'Calculate fair market bond pricing, percentage of par, and premium/discount valuation.',
+    description: 'Calculate the theoretical market price of fixed-coupon bonds using face value, coupon rate, market yield (YTM), maturity, and compounding frequency.',
+    icon: 'Layers',
+    keywords: [
+      'bond price calculator',
+      'bond valuation calculator',
+      'bond value calculator',
+      'bond pricing calculator',
+      'coupon bond price formula',
+      'bond premium discount calculator',
+    ],
+    featured: true,
+    relatedTools: ['ytm-calculator', 'bond-yield-calculator', 'present-value-calculator', 'annuity-calculator'],
+    formulaSummary: 'Bond Price = Σ [C / (1 + y/m)^t] + [F / (1 + y/m)^(n×m)]',
+    formulaDetails: [
+      'Periodic Coupon (C) = (Face Value × Coupon Rate) / m',
+      'PV of Coupons = C × [(1 - (1 + y/m)^(-n×m)) / (y/m)]',
+      'PV of Par Value = Face Value / (1 + y/m)^(n×m)',
+      'Total Estimated Price = PV of Coupons + PV of Par Value',
+    ],
+    exampleCalculation: {
+      title: 'Example: $1,000 Par Bond with 6% Coupon, 5% Market Yield, 10-Yr Semi-Annual',
+      description: 'Valuing a bond trading at a premium due to market yield below coupon rate.',
+      inputs: {
+        'Face Value': '$1,000.00',
+        'Annual Coupon Rate': '6.0%',
+        'Market Yield (YTM)': '5.0%',
+        'Years to Maturity': '10 Years',
+        'Payment Frequency': 'Semi-Annual',
+      },
+      outputs: {
+        'Bond Price': '$1,077.95',
+        'Percentage of Par': '107.79%',
+        'Trading Status': 'Trading at Premium',
+        'PV of Coupons': '$466.86',
+        'PV of Par': '$611.09',
+      },
+    },
+    faqs: [
+      {
+        question: 'Why does a bond price rise when market interest rates fall?',
+        answer: 'Bond prices and interest rates have an inverse relationship. When prevailing interest rates fall, existing bonds with higher fixed coupon rates become more valuable, driving their market price above par (premium).',
+      },
+      {
+        question: 'What is the difference between clean price and dirty price?',
+        answer: 'Clean price is the quote price of the bond excluding accrued interest between coupon dates. Dirty price includes accrued interest that the buyer must pay the seller on the settlement date.',
+      },
+      {
+        question: 'What does it mean when a bond trades at a discount?',
+        answer: 'A bond trades at a discount (below $1,000 par) when its coupon rate is lower than the current prevailing market interest rate for bonds of comparable credit risk and maturity.',
+      },
+    ],
+  },
+
+  // 10. YIELD TO MATURITY CALCULATOR
+  {
+    id: 'ytm-calculator',
+    name: 'Yield to Maturity Calculator',
+    slug: 'ytm-calculator',
+    route: '/calculators/ytm-calculator',
+    category: 'investment',
+    categoryLabel: 'Investment & Growth',
+    shortDescription: 'Calculate Yield to Maturity (YTM) and Current Yield using Newton-Raphson polynomial approximation.',
+    description: 'Calculate the annualized internal rate of return (YTM) for fixed-rate bonds based on purchase price, par value, coupon rate, and maturity. Clearly labels results as exact iterative approximations.',
+    icon: 'Percent',
+    keywords: [
+      'yield to maturity calculator',
+      'YTM calculator',
+      'bond yield calculator',
+      'bond return calculator',
+      'ytm formula calculator',
+      'bond irr calculator',
+    ],
+    featured: true,
+    relatedTools: ['bond-price-calculator', 'bond-yield-calculator', 'irr-calculator', 'cagr-calculator'],
+    formulaSummary: 'P = Σ [C / (1 + YTM/m)^t] + [F / (1 + YTM/m)^(n×m)] (Iterative Solver)',
+    formulaDetails: [
+      'Approx YTM = [C + (F - P) / n] / [(F + P) / 2]',
+      'Current Yield (%) = (Annual Coupon / Current Market Price) × 100',
+      'Exact YTM solved via Newton-Raphson iterative convergence algorithm',
+      'Capital Gain / Loss at Maturity = Face Value - Current Market Price',
+    ],
+    exampleCalculation: {
+      title: 'Example: $940 Purchase of a $1,000 Par, 5.0% Coupon, 7-Year Semi-Annual Bond',
+      description: 'Solving for exact annualized YTM using numerical polynomial iteration.',
+      inputs: {
+        'Current Market Price': '$940.00',
+        'Par Value': '$1,000.00',
+        'Coupon Rate': '5.0%',
+        'Years to Maturity': '7 Years',
+        'Frequency': 'Semi-Annual',
+      },
+      outputs: {
+        'Estimated YTM': '6.07%',
+        'Current Yield': '5.32%',
+        'Annual Coupon': '$50.00',
+        'Capital Gain at Maturity': '+$60.00',
+      },
+    },
+    faqs: [
+      {
+        question: 'What assumptions does Yield to Maturity make?',
+        answer: 'YTM assumes the investor holds the bond until maturity and reinvests every coupon payment at the exact same interest rate as the YTM itself throughout the entire lifespan.',
+      },
+      {
+        question: 'How does YTM differ from Current Yield?',
+        answer: 'Current Yield simply divides annual coupon income by the current price. YTM accounts for the time value of money and the capital gain or loss realized when par value is redeemed at maturity.',
+      },
+      {
+        question: 'Why is an iterative approximation required to calculate YTM?',
+        answer: 'Mathematically, YTM is the root of a high-degree polynomial equation. There is no simple algebraic closed-form formula, so numerical methods like Newton-Raphson are standard.',
+      },
+    ],
+  },
+
+  // 11. STOCK VALUATION CALCULATOR
+  {
+    id: 'stock-valuation-calculator',
+    name: 'Stock Valuation Calculator',
+    slug: 'stock-valuation-calculator',
+    route: '/calculators/stock-valuation-calculator',
+    category: 'investment',
+    categoryLabel: 'Investment & Growth',
+    shortDescription: 'Educational intrinsic stock valuation modeling using P/E multiples, Benjamin Graham formula, and Gordon Growth.',
+    description: 'Evaluate fundamental stock valuation per share using established valuation models. Compare intrinsic value against current market price. Clearly states all assumptions and disclaimers.',
+    icon: 'Briefcase',
+    keywords: [
+      'stock valuation calculator',
+      'stock intrinsic value calculator',
+      'share valuation calculator',
+      'stock value calculator',
+      'benjamin graham intrinsic value',
+      'pe valuation model',
+    ],
+    featured: true,
+    relatedTools: ['pe-ratio-calculator', 'margin-of-safety-calculator', 'cagr-calculator', 'stock-profit-calculator'],
+    formulaSummary: 'Estimated Fair Value = EPS × Target P/E (or Graham Intrinsic Formula)',
+    formulaDetails: [
+      'P/E Multiple Model: Fair Value = EPS × Benchmark Target P/E',
+      'Benjamin Graham Model: Value = [EPS × (8.5 + 2g) × 4.4] / Y',
+      'Gordon Growth Model: Value = D1 / (r - g)',
+      'Valuation Premium / Discount (%) = ((Estimated Fair Value - Market Price) / Market Price) × 100',
+    ],
+    exampleCalculation: {
+      title: 'Example: Tech Enterprise with $4.50 EPS, 22x Multiple vs $85 Market Price',
+      description: 'Valuing shares with benchmark P/E and assessing discount margin.',
+      inputs: {
+        'Current Market Price': '$85.00',
+        'Earnings Per Share (EPS)': '$4.50',
+        'Target Benchmark P/E': '22.0x',
+      },
+      outputs: {
+        'Estimated Fair Value': '$99.00',
+        'Dollar Difference': '+$14.00',
+        'Valuation Discount': '+16.47% (Undervalued)',
+        'Valuation Signal': 'Undervalued',
+      },
+    },
+    faqs: [
+      {
+        question: 'What is the Benjamin Graham intrinsic value formula?',
+        answer: 'Formulated by the father of value investing, V = [EPS × (8.5 + 2g) × 4.4] / Y, where 8.5 is the base P/E for a zero-growth company, g is expected growth rate, 4.4 was the historical AAA bond yield, and Y is current corporate yield.',
+      },
+      {
+        question: 'Can any valuation calculator guarantee future stock returns?',
+        answer: 'No. Intrinsic valuation models are educational tools driven by input assumptions. Unforeseen competitive disruptions, macroeconomic shifts, and management decisions will alter real-world equity returns.',
+      },
+      {
+        question: 'Why should I apply a Margin of Safety to calculated valuations?',
+        answer: 'Value investors like Warren Buffett require a 20% to 30% discount below calculated intrinsic value to protect against errors in forecasting forward earnings growth.',
+      },
+    ],
+  },
+
+  // 12. P/E RATIO CALCULATOR
+  {
+    id: 'pe-ratio-calculator',
+    name: 'P/E Ratio Calculator',
+    slug: 'pe-ratio-calculator',
+    route: '/calculators/pe-ratio-calculator',
+    category: 'investment',
+    categoryLabel: 'Investment & Growth',
+    shortDescription: 'Calculate Price-to-Earnings (P/E) ratio, implied share price, earnings yield, and PEG ratio.',
+    description: 'Calculate P/E ratios from stock price and earnings per share (EPS). Reverse-engineer implied share price from target multiples, and compute earnings yields against industry benchmarks.',
+    icon: 'PieChart',
+    keywords: [
+      'PE ratio calculator',
+      'P/E ratio calculator',
+      'price earnings ratio calculator',
+      'stock PE calculator',
+      'implied stock price calculator',
+      'earnings yield calculator',
+    ],
+    featured: true,
+    relatedTools: ['stock-valuation-calculator', 'margin-of-safety-calculator', 'stock-average-calculator', 'stock-profit-calculator'],
+    formulaSummary: 'P/E Ratio = Stock Price / Earnings Per Share (EPS)',
+    formulaDetails: [
+      'P/E Ratio = Market Price per Share / EPS',
+      'Implied Stock Price = EPS × Target P/E Multiple',
+      'Required EPS = Stock Price / Target P/E Multiple',
+      'Earnings Yield (%) = (EPS / Stock Price) × 100 = (1 / PE) × 100',
+      'PEG Ratio = P/E Ratio / Annual EPS Growth Rate',
+    ],
+    exampleCalculation: {
+      title: 'Example: $135 Share Price with $5.40 Trailing EPS',
+      description: 'Calculating P/E multiple and comparing against earnings yield.',
+      inputs: {
+        'Stock Market Price': '$135.00',
+        'Earnings Per Share (EPS)': '$5.40',
+        'EPS Growth Rate': '15.0%',
+      },
+      outputs: {
+        'P/E Ratio': '25.00x',
+        'Earnings Yield': '4.00%',
+        'PEG Ratio': '1.67',
+        'Valuation Tier': 'Growth (25x - 50x)',
+      },
+    },
+    faqs: [
+      {
+        question: 'What is the difference between Trailing P/E and Forward P/E?',
+        answer: 'Trailing P/E uses actual past 12-month earnings (audited history). Forward P/E uses consensus analyst forecasts for next year earnings, which can be overly optimistic.',
+      },
+      {
+        question: 'What is a good P/E ratio for a stock?',
+        answer: 'Historical average for the S&P 500 is approximately 16x to 20x. High-growth technology stocks often trade between 30x and 60x, while mature cyclicals and financials trade between 8x and 15x.',
+      },
+      {
+        question: 'What is Earnings Yield and how does it compare to bond yields?',
+        answer: 'Earnings Yield is the inverse of P/E (EPS / Price). If a stock has a P/E of 20x, its earnings yield is 5.0%. Comparing this yield against Treasury rates helps investors decide between equity and bond allocations.',
+      },
+    ],
+  },
+
+  // 13. POSITION RISK CALCULATOR
+  {
+    id: 'position-risk-calculator',
+    name: 'Position Risk Calculator',
+    slug: 'position-risk-calculator',
+    route: '/calculators/position-risk-calculator',
+    category: 'crypto',
+    categoryLabel: 'Cryptocurrency & Trading',
+    shortDescription: 'Calculate maximum dollar risk, position sizing, invalidation spread, and Risk-to-Reward (R:R) ratios.',
+    description: 'Manage capital risk for crypto, stock, and forex trading. Calculate exact position size based on account balance, maximum risk percentage (e.g. 1% or 2%), entry price, and stop loss invalidation.',
+    icon: 'ShieldAlert',
+    keywords: [
+      'position risk calculator',
+      'trade risk calculator',
+      'forex position risk calculator',
+      'crypto risk calculator',
+      'position sizing risk calculator',
+      'risk reward ratio calculator',
+    ],
+    featured: true,
+    relatedTools: ['risk-reward-calculator', 'position-size-calculator', 'stop-loss-calculator', 'crypto-break-even-roi-calculator'],
+    formulaSummary: 'Position Size = (Account Equity × Risk %) / |Entry Price - Stop Loss|',
+    formulaDetails: [
+      'Dollar Risk Amount ($) = Account Balance × (Risk % / 100)',
+      'Risk Per Share/Unit ($) = |Entry Price - Stop Loss Price|',
+      'Recommended Position Units = Dollar Risk Amount / Risk Per Share',
+      'Total Position Value = Recommended Units × Entry Price',
+      'Risk-to-Reward Ratio (R:R) = |Take Profit - Entry| / |Entry - Stop Loss|',
+    ],
+    exampleCalculation: {
+      title: 'Example: $25,000 Trading Account with 1.5% Risk on a $120 Entry',
+      description: 'Determining exact unit size with $112 stop loss and $140 take profit target.',
+      inputs: {
+        'Account Equity': '$25,000.00',
+        'Max Account Risk': '1.5%',
+        'Entry Price': '$120.00',
+        'Stop Loss Price': '$112.00',
+        'Take Profit Price': '$140.00',
+      },
+      outputs: {
+        'Total Dollar Risk': '$375.00',
+        'Risk Per Share': '$8.00 (6.67%)',
+        'Position Size': '46.87 Units',
+        'Total Position Value': '$5,625.00',
+        'Risk-to-Reward Ratio': '1 : 2.50',
+      },
+    },
+    faqs: [
+      {
+        question: 'Why do professional traders adhere to the 1% or 2% account risk rule?',
+        answer: 'Limiting risk on any single trade to 1-2% of total equity prevents catastrophic drawdowns. Even during an unlikely losing streak of 10 consecutive trades, your portfolio retains over 80-90% of its initial capital.',
+      },
+      {
+        question: 'How does leverage affect position risk sizing?',
+        answer: 'Leverage does not change the dollar amount you risk; it merely reduces the margin collateral required to control the position. Your stop loss price must always dictate trade size, never available leverage.',
+      },
+      {
+        question: 'What is a favorable Risk-to-Reward ratio for profitable trading?',
+        answer: 'Most disciplined traders seek at least a 1:2 or 1:3 Risk-to-Reward setup. At a 1:2 R:R, a trader only needs a 35% win rate to remain reliably profitable over hundreds of trades.',
+      },
+    ],
+  },
+
+  // 14. CRYPTO BREAK-EVEN ROI CALCULATOR
+  {
+    id: 'crypto-break-even-roi-calculator',
+    name: 'Crypto Break-Even ROI Calculator',
+    slug: 'crypto-break-even-roi-calculator',
+    route: '/calculators/crypto-break-even-roi-calculator',
+    category: 'crypto',
+    categoryLabel: 'Cryptocurrency',
+    shortDescription: 'Calculate crypto break-even exit price factoring in round-trip exchange fees and target ROI prices.',
+    description: 'Calculate your exact cryptocurrency break-even price accounting for maker and taker exchange fees on both entry and exit. Determine target prices required to achieve desired net profit dollars or net ROI.',
+    icon: 'Target',
+    keywords: [
+      'crypto break even roi calculator',
+      'crypto break even calculator',
+      'bitcoin break even price',
+      'crypto fee break even calculator',
+      'crypto profit target calculator',
+      'exchange fee break even calculator',
+    ],
+    featured: true,
+    relatedTools: ['crypto-roi-calc', 'crypto-break-even', 'trading-fee-calculator', 'crypto-tax-calc'],
+    formulaSummary: 'Break-Even Price = Entry Price × [(1 + Buy Fee) / (1 - Sell Fee)]',
+    formulaDetails: [
+      'Total Fiat Outlay = (Quantity × Entry Price) × (1 + Buy Fee Rate)',
+      'Break-Even Exit Price = Entry Price × [(1 + Buy Fee Rate) / (1 - Sell Fee Rate)]',
+      'Target Exit Price for Net ROI = Total Outlay × (1 + Target ROI) / [Quantity × (1 - Sell Fee Rate)]',
+      'Round-Trip Fees Paid = Buy Fee Amount + Sell Fee Amount',
+    ],
+    exampleCalculation: {
+      title: 'Example: $60,000 Bitcoin Entry with 0.2% Maker/Taker Fees and 15% ROI Goal',
+      description: 'Computing exact fee-inclusive break-even price and 15% profit target.',
+      inputs: {
+        'Entry Price': '$60,000.00',
+        'Quantity': '0.50 BTC',
+        'Exchange Buy Fee': '0.20%',
+        'Exchange Sell Fee': '0.20%',
+        'Target Net ROI': '15.0%',
+      },
+      outputs: {
+        'Total Outlay': '$30,060.00',
+        'Break-Even Exit Price': '$60,240.48',
+        'Price Increase Needed': '+0.40%',
+        'Target Exit Price (15% ROI)': '$69,276.55',
+        'Net Profit at Target': '+$4,509.00',
+      },
+    },
+    faqs: [
+      {
+        question: 'Why is break-even price higher than my entry price plus fees?',
+        answer: 'Because the exit exchange fee is levied on the total sell proceeds (a higher dollar amount than your initial purchase), your break-even formula must divide by (1 - sell fee) to account for fee compounding.',
+      },
+      {
+        question: 'What is the difference between Maker and Taker fees?',
+        answer: 'Maker fees apply to limit orders that add liquidity to the exchange order book (usually 0.02% to 0.10%). Taker fees apply to market orders that remove immediate liquidity (typically 0.05% to 0.50%).',
+      },
+      {
+        question: 'Should on-chain gas fees or deposit fees be factored in?',
+        answer: 'Yes, if you transfer tokens between self-custody wallets and centralized exchanges, factor the dollar equivalent of network gas fees into your initial cost basis.',
+      },
+    ],
+  },
+
+  // 15. CRYPTO DCA STRATEGY & PROFIT CALCULATOR
+  {
+    id: 'crypto-dca-strategy-calculator',
+    name: 'Crypto DCA Strategy & Profit Calculator',
+    slug: 'crypto-dca-strategy-calculator',
+    route: '/calculators/crypto-dca-strategy-calculator',
+    category: 'crypto',
+    categoryLabel: 'Cryptocurrency',
+    shortDescription: 'Simulate recurring crypto DCA over volatile market cycles, average cost basis, staking yield, and lump-sum comparison.',
+    description: 'Model recurring cryptocurrency dollar-cost averaging across bull, bear, and consolidation cycles. Track accumulated coins, average entry price, staking reward yields, and benchmark performance directly against Day 1 lump-sum investing.',
+    icon: 'Repeat',
+    keywords: [
+      'crypto dca strategy calculator',
+      'crypto dca profit calculator',
+      'bitcoin dca schedule calculator',
+      'crypto dollar cost averaging calculator',
+      'dca vs lump sum crypto calculator',
+      'recurring crypto buy simulation',
+    ],
+    featured: true,
+    relatedTools: ['crypto-dca-calc', 'crypto-roi-calc', 'crypto-average-price-calculator', 'crypto-compound-interest-calc'],
+    formulaSummary: 'Average Purchase Price = Total Fiat Deposited / Total Crypto Acquired',
+    formulaDetails: [
+      'Total Periods = Duration in Months × Frequency multiplier (Daily: 30, Weekly: 4.33, Monthly: 1)',
+      'Total Fiat Invested = Recurring Deposit × Total Periods',
+      'Total Crypto Acquired = Sum of (Recurring Deposit / Market Price at Period i)',
+      'Ending Portfolio Value = (Total Crypto Acquired × Final Price) + Staking Rewards',
+      'Lump-Sum Comparison = (Total Fiat Invested / Starting Price) × Final Price',
+    ],
+    exampleCalculation: {
+      title: 'Example: $200 Weekly Ethereum DCA Over 12 Months ($2,200 Start to $3,800 End)',
+      description: 'Simulating dip-and-recovery cycle accumulation with 4% staking yield.',
+      inputs: {
+        'Recurring Deposit': '$200.00 / week',
+        'Duration': '12 Months (52 Weeks)',
+        'Starting Price': '$2,200.00',
+        'Ending Price': '$3,800.00',
+        'Market Cycle': 'Dip and Recovery',
+        'Staking APY': '4.0%',
+      },
+      outputs: {
+        'Total Cash Invested': '$10,400.00',
+        'Total ETH Acquired': '4.385 ETH',
+        'Average Price Paid': '$2,371.49',
+        'Ending Portfolio Value': '$16,997.80',
+        'Net Profit & ROI': '+$6,597.80 (+63.44%)',
+      },
+    },
+    faqs: [
+      {
+        question: 'Why is DCA considered superior for highly volatile crypto assets?',
+        answer: 'Crypto assets frequently undergo 50% to 80% market drawdowns. DCA removes the psychological anxiety of picking exact cycle bottoms by automatically purchasing more tokens when prices crash and fewer when prices surge.',
+      },
+      {
+        question: 'Does DCA always beat Lump-Sum investing in crypto?',
+        answer: 'In raging parabolic bull markets, deploying all cash on Day 1 (lump-sum) often outperforms DCA. However, in bear markets or prolonged multi-month sideways consolidations, DCA generates substantially higher risk-adjusted returns with far lower drawdowns.',
+      },
+      {
+        question: 'How do staking rewards compound during a DCA campaign?',
+        answer: 'By staking acquired Proof-of-Stake tokens (e.g. Ethereum, Solana, Cardano), your growing balance earns additional protocol rewards in native tokens, further lowering your effective dollar-cost entry basis.',
+      },
+    ],
+  },
+];

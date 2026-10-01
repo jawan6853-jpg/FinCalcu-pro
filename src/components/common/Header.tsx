@@ -4,6 +4,7 @@ import { SearchBar } from './SearchBar';
 import { ThemeToggle } from './ThemeToggle';
 import { CurrencySelector } from './CurrencySelector';
 import { HistoryDrawer } from './HistoryDrawer';
+import { PWAInstallButton } from './PWAInstallButton';
 
 interface HeaderProps {
   currentPath: string;
@@ -87,6 +88,8 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
           <ThemeToggle />
 
+          <PWAInstallButton />
+
           {/* Mobile menu toggle */}
           <button
             type="button"
@@ -110,6 +113,10 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
           <div className="flex items-center justify-between py-2 px-1 border-b border-slate-100 dark:border-slate-800">
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Currency</span>
             <CurrencySelector />
+          </div>
+
+          <div className="py-1">
+            <PWAInstallButton className="w-full justify-center" />
           </div>
 
           <div className="space-y-1">
